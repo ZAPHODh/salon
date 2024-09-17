@@ -1,0 +1,7 @@
+{
+    "language": "ts",
+    "outputDir": "src/components",
+    "cssFramework": "styled-components",
+    "test": "jest",
+    "useStorybook": true
+}
