@@ -1,15 +1,34 @@
 interface Expense {
-    _id?: string
-    date: Date
+    name: string
     type: 'fixed' | 'variable'
     category: string
     amount: number
-    notes?: string
+    expense: string
 }
 
 interface Service {
     name: string
-    coust: number
-    amount: number
+    cost: number
     commission: number
+    attachedExpenses: Expense[]
+    duration: number
 }
+
+interface Salon {
+    name: string
+    fee: number
+    openDays: WeekDays[]
+    hoursWorkedPerDay: number
+    hoursWorkedInMonth: number
+    expenses: Expense[]
+    services: Service[]
+}
+
+type WeekDays =
+    | 'sunday'
+    | 'monday'
+    | 'tuesday'
+    | 'wednesday'
+    | 'thursday'
+    | 'friday'
+    | 'saturday'

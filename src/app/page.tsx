@@ -1,5 +1,4 @@
 import { ExpensesTable } from '@/components/ExpensesTable'
-import { ServiceProfitability } from '@/components/ServiceProfitability'
 
 export default async function Home() {
     const data = await fetch('http:/localhost:4000/expenses', {
@@ -11,7 +10,6 @@ export default async function Home() {
     return (
         <main>
             <ExpensesTable title="Despesas" expenses={expenses} />
-            <ServiceProfitability totalCosts={allAmount} />
         </main>
     )
 }

@@ -10,28 +10,26 @@ interface ExpenseFormProps {
     onSubmit: (expense: Expense) => void
 }
 
-const ExpenseForm: React.FC<ExpenseFormProps> = ({
+export const ExpenseForm: React.FC<ExpenseFormProps> = ({
     onClose,
     isOpen,
     onSubmit,
 }) => {
-    const [date, setDate] = useState<string>('')
+    const [name, setName] = useState<string>('')
     const [type, setType] = useState<'fixed' | 'variable'>('fixed')
     const [category, setCategory] = useState<string>('')
     const [amount, setAmount] = useState<number>(0)
-    const [notes, setNotes] = useState<string>('')
 
     const formRef = useRef<HTMLFormElement>(null)
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const expense = {
-            date: new Date(date),
-            type,
+        const expense: Expense = {
             category,
             amount,
-            notes,
+            name,
+            type,
         }
 
         try {
@@ -52,11 +50,10 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     }
 
     const resetForm = () => {
-        setDate('')
+        setName('')
         setType('fixed')
         setCategory('')
         setAmount(0)
-        setNotes('')
     }
 
     useEffect(() => {
@@ -79,11 +76,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     return (
         <Wrapper $blur={isOpen}>
             <Form onSubmit={handleSubmit} ref={formRef}>
-                <Label>Data</Label>
+                <Label>Despesa</Label>
                 <Input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
                 />
 
@@ -109,20 +106,12 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                 <Label>Valor</Label>
                 <Input
                     type="number"
-                    value={amount}
+                    value={amount ? amount : ''}
                     onChange={(e) => setAmount(Number(e.target.value))}
                     required
                 />
-
-                <Label>Notas</Label>
-                <TextArea
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                />
-
                 <Button type="submit">Adicionar despesa</Button>
             </Form>
         </Wrapper>
     )
 }
-export default ExpenseForm

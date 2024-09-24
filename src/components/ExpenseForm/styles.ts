@@ -26,11 +26,11 @@ export const Input = styled.input`
     color: white;
     background-color: #333333;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid goldenrod;
     border-radius: 5px;
     font-size: 16px;
     &:focus {
-        border-color: gray;
+        border-color: gold;
         outline: none;
     }
     &::-webkit-calendar-picker-indicator {
@@ -40,20 +40,20 @@ export const Input = styled.input`
 
 export const Select = styled.select`
     padding: 10px;
-    border: 1px solid gray;
+    border: 1px solid goldenrod;
     border-radius: 5px;
     font-size: 16px;
     background-color: #333333;
     color: white;
     &:focus {
-        border-color: gray;
+        border-color: gold;
         outline: none;
     }
 `
 
 export const TextArea = styled.textarea`
     padding: 10px;
-    border: 1px solid gray;
+    border: 1px solid goldenrod;
     border-radius: 5px;
     font-size: 16px;
     resize: vertical;
@@ -61,14 +61,14 @@ export const TextArea = styled.textarea`
     background-color: #333333;
     color: white;
     &:focus {
-        border-color: #333333;
+        border-color: gold;
         outline: none;
     }
 `
 
 export const Button = styled.button`
     padding: 10px 15px;
-    background-color: #4caf50;
+    background-color: #8d6707;
     color: white;
     border: none;
     border-radius: 5px;
@@ -76,7 +76,7 @@ export const Button = styled.button`
     cursor: pointer;
     transition: background-color 0.3s;
     &:hover {
-        background-color: #45a049;
+        background-color: #6f5206;
         cursor: pointer;
     }
 `

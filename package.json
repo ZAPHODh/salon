@@ -11,7 +11,7 @@
         "test:watch": "jest --watch",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",
-        "snap-component": "snap-component"
+        "snap-component": "snap-component snap-component"
     },
     "dependencies": {
         "@gsap/react": "^2.1.1",
