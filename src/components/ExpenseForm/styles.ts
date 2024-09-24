@@ -1,5 +1,5 @@
 // components/ExpenseForm/styles.ts
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Form = styled.form`
     display: flex;
@@ -67,18 +67,20 @@ export const TextArea = styled.textarea`
 `
 
 export const Button = styled.button`
-    padding: 10px 15px;
-    background-color: #8d6707;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    &:hover {
-        background-color: #6f5206;
+    ${({ theme }) => css`
+        padding: 10px 15px;
+        background-color: ${theme.colors.gold};
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
         cursor: pointer;
-    }
+        transition: background-color 0.3s;
+        &:hover {
+            background-color: ${theme.colors.hoverGold};
+            cursor: pointer;
+        }
+    `}
 `
 export const Wrapper = styled.div<{ $blur: boolean }>`
     z-index: 1;

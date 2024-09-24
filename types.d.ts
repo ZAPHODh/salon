@@ -1,4 +1,5 @@
 interface Expense {
+    _id?: string
     name: string
     type: 'fixed' | 'variable'
     category: string
@@ -7,6 +8,7 @@ interface Expense {
 }
 
 interface Service {
+    _id?: string
     name: string
     cost: number
     commission: number
@@ -15,6 +17,7 @@ interface Service {
 }
 
 interface Salon {
+    _id?: string
     name: string
     fee: number
     openDays: WeekDays[]
