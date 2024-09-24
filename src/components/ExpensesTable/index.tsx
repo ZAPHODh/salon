@@ -88,12 +88,6 @@ export const ExpensesTable = ({ expenses = [], title }: ExpensesTableProps) => {
                         : bValue - aValue
                 }
 
-                if (aValue instanceof Date && bValue instanceof Date) {
-                    return sortDirection === 'asc'
-                        ? aValue.getTime() - bValue.getTime()
-                        : bValue.getTime() - aValue.getTime()
-                }
-
                 return 0
             })
         )
@@ -165,9 +159,9 @@ export const ExpensesTable = ({ expenses = [], title }: ExpensesTableProps) => {
                     <Styled.TableRow>
                         <Styled.TableHeader>
                             <Styled.WrapperHeader>
-                                Data
+                                Despesa
                                 <Styled.NeutralButton
-                                    onClick={() => sort('date')}
+                                    onClick={() => sort('name')}
                                 >
                                     <SortAlt />
                                 </Styled.NeutralButton>
@@ -212,21 +206,13 @@ export const ExpensesTable = ({ expenses = [], title }: ExpensesTableProps) => {
                             <Styled.TableCell>
                                 {editingIndex === index ? (
                                     <Styled.Input
-                                        type="date"
-                                        name="date"
-                                        value={
-                                            new Date(
-                                                editableExpense?.date || ''
-                                            )
-                                                .toISOString()
-                                                .split('T')[0]
-                                        }
+                                        type="text"
+                                        name="name"
+                                        value={editableExpense?.name || ''}
                                         onChange={handleInputChange}
                                     />
                                 ) : (
-                                    new Date(expense.date).toLocaleDateString(
-                                        'pt-BR'
-                                    )
+                                    expense.name
                                 )}
                             </Styled.TableCell>
                             <Styled.TableCell>

@@ -2,8 +2,8 @@ import { DefaultTheme } from 'styled-components'
 
 export const theme: DefaultTheme = {
     colors: {
-        brown: '#B45344',
-        lightPink: '#EFBFB1',
+        gold: '#8d6707',
+        hoverGold: '#6f5206',
         darkPink: '#E49189',
     },
 }

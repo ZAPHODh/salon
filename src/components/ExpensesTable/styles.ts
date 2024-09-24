@@ -1,5 +1,15 @@
 // components/ExpensesTable/styles.ts
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
+const pulse = keyframes`
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4); /* Adjust scale for pulse size */
+    opacity: 0;
+  }
+`
 
 export const Table = styled.table`
     width: 100%;
@@ -26,7 +36,7 @@ export const TableRow = styled.tr`
 export const TableCell = styled.td`
     border-top: 1px solid gray;
     padding: 15px 3px;
-    text-align: left;
+    text-align: center;
     text-transform: capitalize;
     color: white;
 `
@@ -35,26 +45,26 @@ export const TableHeader = styled.th`
     background-color: #090c08;
     color: #c2c2c2;
     padding: 15px 3px;
-    text-align: left;
+    text-align: center;
 `
 export const Button = styled.button<{ $isDelete?: boolean }>`
-    padding: 10px;
-    background-color: ${({ $isDelete }) =>
-        `${$isDelete ? '#f44336' : '#4caf50'}`};
-    color: white;
-    border: none;
-    border-radius: 5px;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px;
-    &:hover {
-        background-color: ${({ $isDelete }) =>
-            `${$isDelete ? '#e53935' : '#45a049'}`};
-        cursor: pointer;
-    }
+    ${({ theme, $isDelete }) => css`
+        padding: 10px;
+        background-color: ${$isDelete ? '#f44336' : theme.colors.gold};
+        color: white;
+        border: none;
+        border-radius: 5px;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        &:hover {
+            background-color: ${$isDelete ? '#e53935' : theme.colors.hoverGold};
+            cursor: pointer;
+        }
+    `}
 `
 export const TitleWrapper = styled.div`
     display: flex;
@@ -92,9 +102,25 @@ export const NeutralButton = styled.button`
     align-items: center;
     justify-content: center;
     margin: 5px;
+    position: relative;
+    overflow: hidden;
+
     &:hover {
         background-color: rgba(255, 255, 255, 0.1);
         cursor: pointer;
+    }
+
+    &:active::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        animation: ${pulse} 0.6s ease-out;
     }
 `
 export const WrapperHeader = styled.div`

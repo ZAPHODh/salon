@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ExpenseForm } from '.'
+import ExpenseForm from '.'
 
 const meta = {
     title: 'Component/ExpenseForm',

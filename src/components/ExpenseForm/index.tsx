@@ -10,7 +10,7 @@ interface ExpenseFormProps {
     onSubmit: (expense: Expense) => void
 }
 
-export const ExpenseForm: React.FC<ExpenseFormProps> = ({
+const ExpenseForm: React.FC<ExpenseFormProps> = ({
     onClose,
     isOpen,
     onSubmit,
@@ -115,3 +115,4 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({
         </Wrapper>
     )
 }
+export default ExpenseForm
