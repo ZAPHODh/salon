@@ -3,7 +3,6 @@ interface Expense {
     type: 'fixed' | 'variable'
     category: string
     amount: number
-    expense: string
 }
 
 interface Service {

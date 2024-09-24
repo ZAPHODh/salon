@@ -80,6 +80,7 @@ export const Button = styled.button`
         cursor: pointer;
     }
 `
+
 export const Wrapper = styled.div<{ $blur: boolean }>`
     z-index: 1;
     width: 100vw;
