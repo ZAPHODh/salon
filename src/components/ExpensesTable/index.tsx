@@ -9,6 +9,7 @@ import { Trash } from '@styled-icons/evaicons-solid/Trash'
 import { SortAlt } from '@styled-icons/boxicons-solid/SortAlt'
 import { Save } from '@styled-icons/boxicons-solid/Save'
 import { DismissSquare } from '@styled-icons/fluentui-system-filled/DismissSquare'
+
 interface ExpensesTableProps {
     expenses: Expense[]
     title: string

@@ -21,9 +21,9 @@ interface Salon {
     fee: number
     openDays: WeekDays[]
     hoursWorkedPerDay: number
-    hoursWorkedInMonth: number
-    expenses: Expense[]
-    services: Service[]
+    hoursWorkedInMonth?: number
+    expenses?: Expense[]
+    services?: Service[]
 }
 
 type WeekDays =

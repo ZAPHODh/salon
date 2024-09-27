@@ -60,9 +60,14 @@ export const Button = styled.button<{ $isDelete?: boolean }>`
         align-items: center;
         justify-content: center;
         margin: 5px;
+        transition: all 0.5s;
         &:hover {
             background-color: ${$isDelete ? '#e53935' : theme.colors.hoverGold};
             cursor: pointer;
+        }
+        &:disabled {
+            background-color: rgba(0, 0, 0, 0.4);
+            cursor: not-allowed;
         }
     `}
 `

@@ -1,22 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Heading } from '.'
+import { SalonForm } from '.'
 
 const meta = {
-    title: 'Component/Heading',
-    component: Heading,
+    title: 'Components/Salonform',
+    component: SalonForm,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
-    argTypes: {
-        children: String,
-    },
-} satisfies Meta<typeof Heading>
+    argTypes: {},
+} satisfies Meta<typeof SalonForm>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: { as: 'h1', children: 'test' },
+    args: { onSubmit: () => {} },
 }

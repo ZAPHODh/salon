@@ -29,12 +29,15 @@ export const Input = styled.input`
     border: 1px solid goldenrod;
     border-radius: 5px;
     font-size: 16px;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     &:focus {
         border-color: gold;
         outline: none;
-    }
-    &::-webkit-calendar-picker-indicator {
-        filter: invert(1);
     }
 `
 
@@ -79,6 +82,10 @@ export const Button = styled.button`
         &:hover {
             background-color: ${theme.colors.hoverGold};
             cursor: pointer;
+        }
+        &:disabled {
+            background-color: ${theme.colors.gray};
+            cursor: not-allowed;
         }
     `}
 `

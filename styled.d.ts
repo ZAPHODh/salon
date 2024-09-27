@@ -5,7 +5,7 @@ declare module 'styled-components' {
         colors: {
             gold: string
             hoverGold: string
-            darkPink: string
+            gray: string
         }
     }
 }

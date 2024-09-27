@@ -22,10 +22,10 @@ export const Default: Story = {
         title: 'preset-storty',
         expenses: [
             {
-                amount: 250,
-                category: 'test',
+                amount: 5000,
+                category: 'estabelecimento',
                 type: 'fixed',
-                name: 'test',
+                name: 'aluguel',
             },
         ],
     },

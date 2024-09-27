@@ -3,28 +3,17 @@
 import { useState } from 'react'
 import * as Styled from './styles'
 import { Button, Form, Label } from '../ExpenseForm/styles'
-import { Input } from '../ExpensesTable/styles'
+import { Input } from '../ExpenseForm/styles'
 import { weekDays } from '@/lib/utils/weekDays'
-export type SalonProps = {
-    name: string
-    openDays: string[]
-    fee: number
-    _id: string
-    hoursWorkedPerDay: number
-}
-export const Salon = ({
-    name,
-    openDays,
-    fee,
-    _id,
-    hoursWorkedPerDay,
-}: SalonProps) => {
-    const [formValues, setFormValues] = useState({
-        name,
-        openDays,
-        fee,
-        _id,
-        hoursWorkedPerDay,
+import { Heading } from '../Heading'
+import { redirect } from 'next/navigation'
+export type SalonFormProps = {}
+export const SalonForm = ({}: SalonFormProps) => {
+    const [formValues, setFormValues] = useState<Salon>({
+        fee: 0,
+        hoursWorkedPerDay: 0,
+        name: '',
+        openDays: [],
     })
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,11 +24,22 @@ export const Salon = ({
         })
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('Form data:', formValues)
+        try {
+            const response = await fetch('http://localhost:4000/salons', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(formValues),
+            })
+            if (!response.ok) console.log('deu erro')
+        } catch (error) {
+            console.log(error)
+        }
     }
-    const handleCheckboxChange = (day: string) => {
+    const handleCheckboxChange = (day: WeekDays) => {
         setFormValues((prev) => {
             const newOpenDays = prev.openDays.includes(day)
                 ? prev.openDays.filter((d) => d !== day)
@@ -47,8 +47,10 @@ export const Salon = ({
             return { ...prev, openDays: newOpenDays }
         })
     }
+
     return (
         <Styled.Wrapper>
+            <Heading as="h2">Primeiro, cadastre o seu salão</Heading>
             <Form onSubmit={handleSubmit}>
                 <Label>Nome do Salão:</Label>
                 <Input
@@ -63,7 +65,6 @@ export const Salon = ({
                     <Styled.CheckboxWrapper key={day.value}>
                         <Styled.HiddenCheckbox
                             type="checkbox"
-                            checked={formValues.openDays.includes(day.value)}
                             onChange={() => handleCheckboxChange(day.value)}
                         />
                         <Styled.StyledCheckbox
@@ -73,7 +74,7 @@ export const Salon = ({
                     </Styled.CheckboxWrapper>
                 ))}
 
-                <Label>Taxa:</Label>
+                <Label>Taxas de cartão:</Label>
                 <Input
                     type="number"
                     name="fee"
@@ -89,7 +90,7 @@ export const Salon = ({
                     onChange={handleInputChange}
                 />
 
-                <Button type="submit">Editar</Button>
+                <Button type="submit">Cadastrar</Button>
             </Form>
         </Styled.Wrapper>
     )

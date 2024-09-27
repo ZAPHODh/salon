@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Salon } from '.'
+import { SalonEdit } from '.'
 
 const meta = {
-    title: 'Components/Salon',
-    component: Salon,
+    title: 'Component/SalonEdit',
+    component: SalonEdit,
     parameters: {
         layout: 'centered',
     },
@@ -14,7 +14,7 @@ const meta = {
             description: ' description',
         },
     },
-} satisfies Meta<typeof Salon>
+} satisfies Meta<typeof SalonEdit>
 
 export default meta
 

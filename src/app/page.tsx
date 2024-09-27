@@ -1,15 +1,23 @@
-import { ExpensesTable } from '@/components/ExpensesTable'
+import { nextAuthOptions } from '@/lib/nextAuthOptions'
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
 
 export default async function Home() {
-    const data = await fetch('http:/localhost:4000/expenses', {
-        cache: 'no-store',
-    })
-    const expenses: Expense[] = await data.json()
-    let allAmount = 0
-    expenses.map((expense) => (allAmount += expense.amount))
-    return (
-        <main>
-            <ExpensesTable title="Despesas" expenses={expenses} />
-        </main>
+    const session = await getServerSession(nextAuthOptions)
+
+    if (!session?.user) {
+        redirect('/auth/signin')
+    }
+    const response = await fetch(
+        `${process.env.PUBLIC_URL_API}/salons/${session.user.email}`,
+        {
+            cache: 'no-store',
+        }
     )
+
+    const salon: Salon = await response.json()
+
+    if (!salon) redirect('/salon')
+
+    if (!salon.expenses) redirect('/expenses')
 }
