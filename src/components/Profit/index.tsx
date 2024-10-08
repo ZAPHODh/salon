@@ -1,16 +1,23 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Heading } from '../Heading'
 import * as Styled from './styles'
 import { Button, NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 import { SortAlt } from '@styled-icons/boxicons-solid/SortAlt'
 import { Save } from '@styled-icons/boxicons-solid/Save'
+import { useSalon } from '@/context/salon'
 export type ProfitProps = {
     salon: Salon
 }
 
 export const Profit = ({ salon }: ProfitProps) => {
+    const { setSalon } = useSalon()
+
+    useEffect(() => {
+        setSalon(salon)
+    }, [salon, setSalon])
+
     const totalHoursInMonth =
         salon.hoursWorkedInMonth ||
         salon.hoursWorkedPerDay * salon.openDays.length * 4
@@ -74,7 +81,7 @@ export const Profit = ({ salon }: ProfitProps) => {
                 totalExpensesPerService,
                 profit,
                 profitPercentage,
-                adjustedServiceCost: service.cost, // Para segurar o valor ajustado
+                adjustedServiceCost: service.cost,
             }
         })
     }
@@ -83,6 +90,9 @@ export const Profit = ({ salon }: ProfitProps) => {
         calculateServiceMetrics()
     )
 
+    useEffect(() => {
+        setServiceMetrics(calculateServiceMetrics())
+    }, [salon])
     const handleSliderChange = (index: number, newValue: number) => {
         setServiceMetrics((prevMetrics) =>
             prevMetrics.map((metric, i) => {
@@ -170,19 +180,14 @@ export const Profit = ({ salon }: ProfitProps) => {
             if (!response.ok) {
                 throw new Error('Erro ao salvar o novo valor')
             }
-
-            const data = await response.json()
-            console.log('Novo valor salvo com sucesso:', data)
         } catch (error) {
             console.error('Erro ao salvar o novo valor:', error)
         }
     }
-
     return (
         <Styled.Wrapper>
             <Heading>Dashboard de Lucro - {salon.name}</Heading>
             {serviceMetrics.map((metric, index) => {
-                const isPositive = metric.profit >= 0
                 const [isOpen, setIsOpen] = useState(false)
 
                 return (

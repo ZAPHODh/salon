@@ -1,19 +1,19 @@
-'use client'
-
 import { createContext, useContext, useState, ReactNode } from 'react'
 
 interface SalonContextProps {
-    salon: Salon | null
-    setSalon: (salon: Salon) => void
+    Salon: Salon | null
+    setSalon: React.Dispatch<React.SetStateAction<Salon | null>>
 }
 
-const SalonContext = createContext<SalonContextProps | undefined>(undefined)
+export const SalonContext = createContext<SalonContextProps | undefined>(
+    undefined
+)
 
 export const SalonProvider = ({ children }: { children: ReactNode }) => {
-    const [salon, setSalon] = useState<Salon | null>(null)
+    const [Salon, setSalon] = useState<Salon | null>(null)
 
     return (
-        <SalonContext.Provider value={{ salon, setSalon }}>
+        <SalonContext.Provider value={{ Salon, setSalon }}>
             {children}
         </SalonContext.Provider>
     )

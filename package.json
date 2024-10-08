@@ -52,6 +52,7 @@
         "prettier": "^3.3.3",
         "snap-component": "^2.0.10",
         "storybook": "^8.3.3",
+        "storybook-react-context": "^0.7.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.2"
     }
