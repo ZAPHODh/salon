@@ -7,7 +7,6 @@ import {
     HiddenCheckbox,
     StyledCheckbox,
 } from '../Salonform/styles'
-import { useSalon } from '@/context/salon'
 
 interface ServiceFormProps {
     onClose: () => void

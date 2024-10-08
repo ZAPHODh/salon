@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import { Title } from '../Heading/styles'
+import { NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 const rotate = keyframes`
   0% {
     transform: rotate(0deg);
@@ -22,12 +23,20 @@ export const Card = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 90vw;
+    ${WrapperHeader} {
+        height: 120px;
+        margin: 0;
+        ${NeutralButton} {
+            margin: 0;
+            height: 120px;
+        }
+    }
 `
 export const ServiceContainer = styled.div`
     width: 90vw;
     height: 120px;
     position: relative;
-    /* padding: 16px; */
+
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: rgba(255, 255, 255, 0.05);

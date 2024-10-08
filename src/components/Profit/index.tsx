@@ -6,18 +6,12 @@ import * as Styled from './styles'
 import { Button, NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 import { SortAlt } from '@styled-icons/boxicons-solid/SortAlt'
 import { Save } from '@styled-icons/boxicons-solid/Save'
-import { useSalon } from '@/context/salon'
+
 export type ProfitProps = {
     salon: Salon
 }
 
 export const Profit = ({ salon }: ProfitProps) => {
-    const { setSalon } = useSalon()
-
-    useEffect(() => {
-        setSalon(salon)
-    }, [salon, setSalon])
-
     const totalHoursInMonth =
         salon.hoursWorkedInMonth ||
         salon.hoursWorkedPerDay * salon.openDays.length * 4
@@ -244,15 +238,14 @@ export const Profit = ({ salon }: ProfitProps) => {
                                         <Save />
                                     </Button>
                                 </Styled.ButtonContainer>
-                                <div>
-                                    <WrapperHeader>
-                                        <NeutralButton
-                                            onClick={() => setIsOpen(!isOpen)}
-                                        >
-                                            <SortAlt />
-                                        </NeutralButton>
-                                    </WrapperHeader>
-                                </div>
+
+                                <WrapperHeader>
+                                    <NeutralButton
+                                        onClick={() => setIsOpen(!isOpen)}
+                                    >
+                                        <SortAlt />
+                                    </NeutralButton>
+                                </WrapperHeader>
                             </Styled.ServiceContainer>
                             {isOpen && (
                                 <Styled.ServiceDetails>
