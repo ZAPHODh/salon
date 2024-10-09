@@ -5,12 +5,14 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Form, Label, Input, Select, Button, TextArea, Wrapper } from './styles'
 
 interface ExpenseFormProps {
+    salon: Salon
     onClose: () => void
     isOpen: boolean
     onSubmit: (expense: Expense) => void
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({
+    salon,
     onClose,
     isOpen,
     onSubmit,
@@ -33,7 +35,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
         }
 
         try {
-            await fetch('http://localhost:4000/expenses', {
+            await fetch(`http://localhost:4000/salons/${salon._id}/expenses`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

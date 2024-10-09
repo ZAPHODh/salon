@@ -11,17 +11,19 @@ import { Save } from '@styled-icons/boxicons-solid/Save'
 import { DismissSquare } from '@styled-icons/fluentui-system-filled/DismissSquare'
 
 interface ExpensesTableProps {
-    expenses: Expense[]
+    salon: Salon
     title: string
 }
 
 const ExpenseForm = dynamic(() => import('../ExpenseForm'))
 
-export const ExpensesTable = ({ expenses = [], title }: ExpensesTableProps) => {
+export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
     const [currentKey, setCurrentKey] = useState<keyof Expense | null>(null)
     const [showForm, setShowForm] = useState<boolean>(false)
-    const [cachedExpenses, setCachedExpenses] = useState<Expense[]>(expenses)
+    const [cachedExpenses, setCachedExpenses] = useState<Expense[]>(
+        salon.expenses || []
+    )
     const [editingIndex, setEditingIndex] = useState<number | null>(null)
     const [editableExpense, setEditableExpense] = useState<Expense | null>(null)
 
@@ -112,7 +114,7 @@ export const ExpensesTable = ({ expenses = [], title }: ExpensesTableProps) => {
         if (editableExpense) {
             try {
                 const response = await fetch(
-                    `http://localhost:4000/expenses/${editableExpense._id}`,
+                    `http://localhost:4000/salons/${salon._id}/services/${editableExpense._id}`,
                     {
                         method: 'PUT',
                         headers: {
@@ -144,6 +146,7 @@ export const ExpensesTable = ({ expenses = [], title }: ExpensesTableProps) => {
         <Styled.Wrapper>
             {showForm && (
                 <ExpenseForm
+                    salon={salon}
                     onSubmit={onSubmit}
                     onClose={handleCloseForm}
                     isOpen={showForm}

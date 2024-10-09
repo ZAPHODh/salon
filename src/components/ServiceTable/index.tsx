@@ -24,18 +24,18 @@ import {
 import { Input } from '../ExpenseForm/styles'
 
 interface ServicesTableProps {
-    salon: Salon
+    services: Service[]
     title: string
 }
 
 const ServiceForm = dynamic(() => import('../ServiceForm'))
 
-export const ServicesTable = ({ salon, title }: ServicesTableProps) => {
+export const ServicesTable = ({ services, title }: ServicesTableProps) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
     const [currentKey, setCurrentKey] = useState<keyof Service | null>(null)
     const [showForm, setShowForm] = useState<boolean>(false)
     const [cachedServices, setCachedServices] = useState<Service[]>(
-        salon.services as Service[]
+        services as Service[]
     )
     const [editingIndex, setEditingIndex] = useState<number | null>(null)
     const [editableService, setEditableService] = useState<Service | null>(null)

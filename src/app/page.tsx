@@ -1,3 +1,4 @@
+import { Profit } from '@/components/Profit'
 import { nextAuthOptions } from '@/lib/nextAuthOptions'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
@@ -6,7 +7,7 @@ export default async function Home() {
     const session = await getServerSession(nextAuthOptions)
 
     if (!session?.user) {
-        redirect('/auth/signin')
+        redirect('api/auth/signin')
     }
     const response = await fetch(
         `${process.env.PUBLIC_URL_API}/salons/${session.user.email}`,
@@ -19,5 +20,5 @@ export default async function Home() {
 
     if (!salon) redirect('/salon')
 
-    if (!salon.expenses) redirect('/expenses')
+    return <Profit salon={salon}></Profit>
 }
