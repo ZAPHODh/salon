@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { Menu as MenuIcon } from '@styled-icons/evaicons-solid/Menu'
 import { Close } from '@styled-icons/evaicons-solid/Close'
 import { Button } from '../ExpenseForm/styles'
-import { Heading } from '../HeadingTemp'
+import { Heading } from '../Heading'
 export type menuLink = {
     name: string
     to: string

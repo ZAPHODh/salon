@@ -5,7 +5,7 @@ import * as Styled from './styles'
 import { Button, Form, Label } from '../ExpenseForm/styles'
 import { Input } from '../ExpenseForm/styles'
 import { weekDays } from '@/lib/utils/weekDays'
-import { Heading } from '../HeadingTemp'
+import { Heading } from '../Heading'
 
 export type SalonFormProps = {
     owner: string
