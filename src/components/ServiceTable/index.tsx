@@ -55,7 +55,7 @@ export const ServicesTable = ({ salon, title }: ServicesTableProps) => {
     const onDelete = async (service: Service) => {
         try {
             const response = await fetch(
-                `http://localhost:4000/services/${service._id}`,
+                `https://crud-salon.onrender.com/salons/${salon._id}/services/${service._id}`,
                 {
                     method: 'DELETE',
                 }
@@ -127,7 +127,7 @@ export const ServicesTable = ({ salon, title }: ServicesTableProps) => {
         if (editableService) {
             try {
                 const response = await fetch(
-                    `http://localhost:4000/salons/${salon._id}/services/${editableService._id}`,
+                    `https://crud-salon.onrender.com/salons/${salon._id}/services/${editableService._id}`,
                     {
                         method: 'PUT',
                         headers: {

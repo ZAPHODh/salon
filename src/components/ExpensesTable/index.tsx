@@ -42,7 +42,7 @@ export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
     const onDelete = async (expense: Expense) => {
         try {
             const response = await fetch(
-                `http://localhost:4000/expenses/${expense._id}`,
+                `https://crud-salon.onrender.com/salons/${salon._id}expenses/${expense._id}`,
                 {
                     method: 'DELETE',
                 }
@@ -114,7 +114,7 @@ export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
         if (editableExpense) {
             try {
                 const response = await fetch(
-                    `http://localhost:4000/salons/${salon._id}/expenses/${editableExpense._id}`,
+                    `https://crud-salon.onrender.com/salons/${salon._id}/expenses/${editableExpense._id}`,
                     {
                         method: 'PUT',
                         headers: {
