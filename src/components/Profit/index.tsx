@@ -6,7 +6,7 @@ import * as Styled from './styles'
 import { Button, NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 import { SortAlt } from '@styled-icons/boxicons-solid/SortAlt'
 import { Save } from '@styled-icons/boxicons-solid/Save'
-import { Heading } from '../Heading'
+import { Heading } from '../HeadingTemp'
 
 export type ProfitProps = {
     salon: Salon

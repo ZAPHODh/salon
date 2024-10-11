@@ -5,7 +5,7 @@ import * as Styled from './styles'
 import { Button, Form, Label } from '../ExpenseForm/styles'
 import { Input } from '../ExpenseForm/styles'
 import { weekDays } from '@/lib/utils/weekDays'
-import { Heading } from '../Heading'
+import { Heading } from '../HeadingTemp'
 
 export type SalonFormProps = {
     owner: string
@@ -29,15 +29,18 @@ export const SalonForm = ({ owner }: SalonFormProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-     
+
         try {
-            const response = await fetch('http://localhost:4000/salons', {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                body: JSON.stringify(formValues),
-            })
+            const response = await fetch(
+                'https://crud-salon.onrender.com/salons',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(formValues),
+                }
+            )
             if (!response.ok) return console.log(await response.json())
             router.push('/expenses')
         } catch (error) {
