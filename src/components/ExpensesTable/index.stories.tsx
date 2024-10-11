@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { ExpensesTable } from '.'
+import { salonData } from '../Profit/mock'
 
 const meta = {
     title: 'Component/ExpensesTable',
@@ -20,13 +21,6 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
     args: {
         title: 'preset-storty',
-        expenses: [
-            {
-                amount: 5000,
-                category: 'estabelecimento',
-                type: 'fixed',
-                name: 'aluguel',
-            },
-        ],
+        salon: salonData,
     },
 }

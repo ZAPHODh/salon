@@ -27,5 +27,6 @@ export const Default: Story = {
         hoursWorkedPerDay: 8,
         name: 'Mauro Chrisostimo',
         openDays: ['sunday', 'monday'],
+        owner: 'luis',
     },
 }

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import ExpenseForm from '.'
+import { salonData } from '../Profit/mock'
 
 const meta = {
     title: 'Component/ExpenseForm',
@@ -16,5 +17,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: { isOpen: true, onSubmit: () => {}, onClose: () => {} },
+    args: {
+        isOpen: true,
+        onSubmit: () => {},
+        onClose: () => {},
+        salon: salonData,
+    },
 }
