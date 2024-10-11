@@ -5,11 +5,11 @@ import * as Styled from './styles'
 
 import { signIn, signOut } from 'next-auth/react'
 
-import { Heading } from '../Heading'
 import { useEffect, useState } from 'react'
 import { Menu as MenuIcon } from '@styled-icons/evaicons-solid/Menu'
 import { Close } from '@styled-icons/evaicons-solid/Close'
 import { Button } from '../ExpenseForm/styles'
+import { Heading } from '../Heading'
 export type menuLink = {
     name: string
     to: string

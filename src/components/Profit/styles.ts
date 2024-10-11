@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
-import { Title } from '../Heading/styles'
+
 import { NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
+import { Title } from '../Heading/styles'
 const rotate = keyframes`
   0% {
     transform: rotate(0deg);
