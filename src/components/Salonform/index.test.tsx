@@ -3,7 +3,9 @@ import { SalonForm } from '.'
 
 describe('Salonform', () => {
     it('should render the Salonform', () => {
-        const { getByText } = render(<SalonForm />)
+        const { getByText } = render(
+            <SalonForm owner="luispaulo.ni@gmail.com" />
+        )
 
         const component = getByText('test')
 

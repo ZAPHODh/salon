@@ -35,14 +35,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
         }
 
         try {
-            await fetch(`http://localhost:4000/salons/${salon._id}/expenses`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                body: JSON.stringify(expense),
-            })
-            onSubmit(expense)
+            const response = await fetch(
+                `http://localhost:4000/salons/${salon._id}/expenses`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(expense),
+                }
+            )
+            const Expense = await response.json()
+            onSubmit(Expense)
         } catch (error) {
             console.log(error)
         }

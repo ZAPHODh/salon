@@ -12,7 +12,8 @@ const rotate = keyframes`
 export const Wrapper = styled.div`
     color: white;
     display: flex;
-    align-items: start;
+    width: 100vw;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
@@ -22,7 +23,7 @@ export const Card = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    width: 90vw;
+    width: 95vw;
     ${WrapperHeader} {
         height: 120px;
         margin: 0;
@@ -33,7 +34,7 @@ export const Card = styled.div`
     }
 `
 export const ServiceContainer = styled.div`
-    width: 90vw;
+    width: 95vw;
     height: 120px;
     position: relative;
 
@@ -165,7 +166,7 @@ export const PriceSlider = styled.input`
         }
     }
 `
-export const ProfitContainer = styled.div<{ isNegative: boolean }>`
+export const ProfitContainer = styled.div<{ $isNegative: boolean }>`
     padding: 5px;
     position: relative;
     display: flex;
@@ -187,8 +188,8 @@ export const ProfitContainer = styled.div<{ isNegative: boolean }>`
         left: 50%;
         width: 100%;
         height: 120px;
-        background-image: ${({ isNegative }) =>
-            isNegative
+        background-image: ${({ $isNegative }) =>
+            $isNegative
                 ? 'linear-gradient(hsl(0, 84%, 60%), hsl(0, 79%, 71%))'
                 : 'linear-gradient(hsl(120, 84%, 60%), hsl(120, 79%, 71%))'};
         filter: blur(40px);

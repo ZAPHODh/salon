@@ -114,7 +114,7 @@ export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
         if (editableExpense) {
             try {
                 const response = await fetch(
-                    `http://localhost:4000/salons/${salon._id}/services/${editableExpense._id}`,
+                    `http://localhost:4000/salons/${salon._id}/expenses/${editableExpense._id}`,
                     {
                         method: 'PUT',
                         headers: {
@@ -125,9 +125,8 @@ export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
                 )
 
                 if (!response.ok) {
-                    throw new Error('Erro ao tentar atualizar a despesa')
+                    console.log(await response.json())
                 }
-
                 setCachedExpenses((prevExpenses) =>
                     prevExpenses.map((exp) =>
                         exp._id === editableExpense._id ? editableExpense : exp
@@ -136,7 +135,6 @@ export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
                 setEditingIndex(null)
                 setEditableExpense(null)
             } catch (error) {
-                console.error('Erro ao atualizar despesa:', error)
                 alert('Erro ao atualizar despesa. Tente novamente.')
             }
         }

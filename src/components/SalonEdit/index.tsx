@@ -11,8 +11,10 @@ export type SalonEditProps = {
     fee: number
     _id: string
     hoursWorkedPerDay: number
+    owner: string
 }
 export const SalonEdit = ({
+    owner,
     name,
     openDays,
     fee,
@@ -22,10 +24,10 @@ export const SalonEdit = ({
     const [changedValues, setChangedValues] = useState<boolean>(false)
     const [defaultValues] = useState({ name, openDays, fee, hoursWorkedPerDay })
     const [formValues, setFormValues] = useState({
+        owner,
         name,
         openDays,
         fee,
-        _id,
         hoursWorkedPerDay,
     })
 
@@ -37,9 +39,17 @@ export const SalonEdit = ({
         })
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        console.log('Form data:', formValues)
+        if (!formValues) return
+        const response = await fetch(`http://localhost:4000/salons/${_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formValues),
+        })
+        if (!response.ok) return console.log(await response.json())
     }
     const handleCheckboxChange = (day: string) => {
         setFormValues((prev) => {

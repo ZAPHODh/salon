@@ -61,4 +61,5 @@ export const salonData: Salon = {
             duration: 4,
         },
     ],
+    owner: 'Dono',
 }

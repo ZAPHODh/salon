@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { SalonForm } from '.'
+import { MenuLink } from '.'
 
 const meta = {
-    title: 'Component/Salonform',
-    component: SalonForm,
+    title: 'Component/MenuLink',
+    component: MenuLink,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
     argTypes: {},
-} satisfies Meta<typeof SalonForm>
+} satisfies Meta<typeof MenuLink>
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-    args: { owner: '' },
+    args: { onClick: () => {}, children: 'test', href: '#' },
 }

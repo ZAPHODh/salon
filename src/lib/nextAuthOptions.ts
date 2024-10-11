@@ -1,5 +1,5 @@
 import { NextAuthOptions } from 'next-auth'
-import GitHubProvider from 'next-auth/providers/github'
+
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 export const nextAuthOptions: NextAuthOptions = {
@@ -36,18 +36,18 @@ export const nextAuthOptions: NextAuthOptions = {
         //         return null
         //     },
         // }),
-        // GitHubProvider({
-        //     clientId: process.env.GITHUB_ID,
-        //     clientSecret: process.env.GITHUB_SECRET,
-        // }),
     ],
     callbacks: {
         async jwt({ token, user }) {
-            user && (token.user = user)
+            if (user) {
+                token.user = user
+            }
             return token
         },
         async session({ session, token }) {
-            session = token.user as any
+            if (token.user) {
+                session.user = token.user
+            }
             return session
         },
     },

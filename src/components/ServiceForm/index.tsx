@@ -43,14 +43,18 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
         }
 
         try {
-            await fetch(`http://localhost:4000/salons/${salon._id}/services`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                body: JSON.stringify(service),
-            })
-            onSubmit(service)
+            const response = await fetch(
+                `http://localhost:4000/salons/${salon._id}/services`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'POST',
+                    body: JSON.stringify(service),
+                }
+            )
+            const Service: Service = await response.json()
+            onSubmit(Service)
         } catch (error) {
             console.log(error)
         }

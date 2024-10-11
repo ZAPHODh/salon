@@ -21,9 +21,13 @@ export const Profit = ({ salon }: ProfitProps) => {
 
         return salon.services.map((service) => {
             const maxServicesPerMonth = Math.floor(
-                totalHoursInMonth / service.duration
+                (totalHoursInMonth * 60) / service.duration
             )
-
+            console.log(
+                maxServicesPerMonth,
+                totalHoursInMonth,
+                service.duration
+            )
             const directExpensesTotal = service.attachedExpenses.reduce(
                 (sum, expense) => sum + expense.amount,
                 0
@@ -75,7 +79,7 @@ export const Profit = ({ salon }: ProfitProps) => {
                 totalExpensesPerService,
                 profit,
                 profitPercentage,
-                adjustedServiceCost: service.cost,
+                adjustedServiceCost: service.cost, // Inicializa com o custo original
             }
         })
     }
@@ -87,14 +91,14 @@ export const Profit = ({ salon }: ProfitProps) => {
     useEffect(() => {
         setServiceMetrics(calculateServiceMetrics())
     }, [salon])
+
     const handleSliderChange = (index: number, newValue: number) => {
         setServiceMetrics((prevMetrics) =>
             prevMetrics.map((metric, i) => {
                 if (i === index) {
                     const maxServicesPerMonth = Math.floor(
-                        totalHoursInMonth / metric.duration
+                        (totalHoursInMonth * 60) / metric.duration
                     )
-
                     const directExpensesTotal = metric.attachedExpenses.reduce(
                         (sum, expense) => sum + expense.amount,
                         0
@@ -178,6 +182,7 @@ export const Profit = ({ salon }: ProfitProps) => {
             console.error('Erro ao salvar o novo valor:', error)
         }
     }
+
     return (
         <Styled.Wrapper>
             <Heading>Dashboard de Lucro - {salon.name}</Heading>
@@ -185,154 +190,148 @@ export const Profit = ({ salon }: ProfitProps) => {
                 const [isOpen, setIsOpen] = useState(false)
 
                 return (
-                    <>
-                        <Styled.Card>
-                            <Styled.ServiceContainer key={index}>
-                                <Styled.ServiceHeader>
-                                    <Heading as="h3">{metric.name}</Heading>
-                                </Styled.ServiceHeader>
-                                <Styled.PriceContainer>
-                                    <Styled.Label>Valor</Styled.Label>
-                                    <Styled.Label>
-                                        R${metric.adjustedServiceCost}
-                                    </Styled.Label>
-                                    <Styled.PriceSlider
-                                        type="range"
-                                        min="0"
-                                        max={metric.cost * 2}
-                                        value={metric.adjustedServiceCost}
-                                        onChange={(e) =>
-                                            handleSliderChange(
-                                                index,
-                                                parseFloat(e.target.value)
-                                            )
-                                        }
-                                    />
-                                    <Styled.Label>Ajuste o valor</Styled.Label>
-                                </Styled.PriceContainer>
-                                <Styled.ProfitContainer
-                                    isNegative={
-                                        metric.profit <= 0 ? true : false
+                    <Styled.Card key={index}>
+                        <Styled.ServiceContainer>
+                            <Styled.ServiceHeader>
+                                <Heading as="h3">{metric.name}</Heading>
+                            </Styled.ServiceHeader>
+                            <Styled.PriceContainer>
+                                <Styled.Label>Valor</Styled.Label>
+                                <Styled.Label>
+                                    R${metric.adjustedServiceCost.toFixed(2)}
+                                </Styled.Label>
+                                <Styled.PriceSlider
+                                    type="range"
+                                    min="0"
+                                    max={metric.cost * 2}
+                                    value={metric.adjustedServiceCost}
+                                    onChange={(e) =>
+                                        handleSliderChange(
+                                            index,
+                                            parseFloat(e.target.value)
+                                        )
                                     }
+                                />
+                                <Styled.Label>Ajuste o valor</Styled.Label>
+                            </Styled.PriceContainer>
+                            <Styled.ProfitContainer
+                                $isNegative={metric.profit <= 0}
+                            >
+                                <Styled.Label>
+                                    {Math.floor(metric.profitPercentage)}%
+                                </Styled.Label>
+                                <Styled.Label>
+                                    {metric.profit < 0
+                                        ? 'Seu serviço está barato demais'
+                                        : 'Lucro'}
+                                </Styled.Label>
+                            </Styled.ProfitContainer>
+                            <Styled.ButtonContainer>
+                                <Styled.Label>Salvar</Styled.Label>
+                                <Button
+                                    disabled={
+                                        metric.cost ===
+                                        metric.adjustedServiceCost
+                                    }
+                                    onClick={() => saveNewValue(metric)}
                                 >
-                                    <Styled.Label>
-                                        {Math.floor(metric.profitPercentage)}%
-                                    </Styled.Label>
-                                    <Styled.Label>
-                                        {metric.profit < 0
-                                            ? 'Seu serviço está barato demais'
-                                            : 'Lucro'}
-                                    </Styled.Label>
-                                </Styled.ProfitContainer>
-                                <Styled.ButtonContainer>
-                                    <Styled.Label>Salvar</Styled.Label>
-                                    <Button
-                                        disabled={
-                                            metric.cost ===
-                                            metric.adjustedServiceCost
-                                                ? true
-                                                : false
-                                        }
-                                        onClick={() => saveNewValue(metric)}
-                                    >
-                                        <Save />
-                                    </Button>
-                                </Styled.ButtonContainer>
+                                    <Save />
+                                </Button>
+                            </Styled.ButtonContainer>
 
-                                <WrapperHeader>
-                                    <NeutralButton
-                                        onClick={() => setIsOpen(!isOpen)}
-                                    >
-                                        <SortAlt />
-                                    </NeutralButton>
-                                </WrapperHeader>
-                            </Styled.ServiceContainer>
-                            {isOpen && (
-                                <Styled.ServiceDetails>
-                                    <Styled.Table>
-                                        <thead>
-                                            <tr>
-                                                <Styled.TableHeader>
-                                                    Descrição
-                                                </Styled.TableHeader>
-                                                <Styled.TableHeader>
-                                                    Valor (R$)
-                                                </Styled.TableHeader>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Serviços Máximos por Mês
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.maxServicesPerMonth}
-                                                </Styled.TableCell>
-                                            </tr>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Gastos Diretos por Serviço
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.directExpensesPerService.toFixed(
-                                                        2
-                                                    )}
-                                                </Styled.TableCell>
-                                            </tr>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Gastos Indiretos por Serviço
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.indirectExpensesPerService.toFixed(
-                                                        2
-                                                    )}
-                                                </Styled.TableCell>
-                                            </tr>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Taxa de Cartão por Serviço
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.feePerService.toFixed(
-                                                        2
-                                                    )}
-                                                </Styled.TableCell>
-                                            </tr>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Comissão por Serviço
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.commissionPerService.toFixed(
-                                                        2
-                                                    )}
-                                                </Styled.TableCell>
-                                            </tr>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Gastos Totais por Serviço
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.totalExpensesPerService.toFixed(
-                                                        2
-                                                    )}
-                                                </Styled.TableCell>
-                                            </tr>
-                                            <tr>
-                                                <Styled.TableCell>
-                                                    Custo Original do Serviço
-                                                </Styled.TableCell>
-                                                <Styled.TableCell>
-                                                    {metric.cost.toFixed(2)}
-                                                </Styled.TableCell>
-                                            </tr>
-                                        </tbody>
-                                    </Styled.Table>
-                                </Styled.ServiceDetails>
-                            )}
-                        </Styled.Card>
-                    </>
+                            <WrapperHeader>
+                                <NeutralButton
+                                    onClick={() => setIsOpen(!isOpen)}
+                                >
+                                    <SortAlt />
+                                </NeutralButton>
+                            </WrapperHeader>
+                        </Styled.ServiceContainer>
+                        {isOpen && (
+                            <Styled.ServiceDetails>
+                                <Styled.Table>
+                                    <thead>
+                                        <tr>
+                                            <Styled.TableHeader>
+                                                Descrição
+                                            </Styled.TableHeader>
+                                            <Styled.TableHeader>
+                                                Valor (R$)
+                                            </Styled.TableHeader>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Serviços Máximos por Mês
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.maxServicesPerMonth}
+                                            </Styled.TableCell>
+                                        </tr>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Gastos Diretos por Serviço
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.directExpensesPerService.toFixed(
+                                                    2
+                                                )}
+                                            </Styled.TableCell>
+                                        </tr>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Gastos Indiretos por Serviço
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.indirectExpensesPerService.toFixed(
+                                                    2
+                                                )}
+                                            </Styled.TableCell>
+                                        </tr>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Taxa de Cartão por Serviço
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.feePerService.toFixed(
+                                                    2
+                                                )}
+                                            </Styled.TableCell>
+                                        </tr>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Comissão por Serviço
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.commissionPerService.toFixed(
+                                                    2
+                                                )}
+                                            </Styled.TableCell>
+                                        </tr>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Gastos Totais por Serviço
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.totalExpensesPerService.toFixed(
+                                                    2
+                                                )}
+                                            </Styled.TableCell>
+                                        </tr>
+                                        <tr>
+                                            <Styled.TableCell>
+                                                Custo Original do Serviço
+                                            </Styled.TableCell>
+                                            <Styled.TableCell>
+                                                {metric.cost.toFixed(2)}
+                                            </Styled.TableCell>
+                                        </tr>
+                                    </tbody>
+                                </Styled.Table>
+                            </Styled.ServiceDetails>
+                        )}
+                    </Styled.Card>
                 )
             })}
         </Styled.Wrapper>

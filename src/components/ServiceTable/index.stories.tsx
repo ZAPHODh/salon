@@ -3,7 +3,7 @@ import { ServicesTable } from '.'
 import { salonData } from '../Profit/mock'
 
 const meta = {
-    title: 'Example/ServiceTable',
+    title: 'Component/ServiceTable',
     component: ServicesTable,
     parameters: {
         layout: 'centered',

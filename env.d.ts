@@ -4,5 +4,6 @@ namespace NodeJS {
         GOOGLE_CLIENT_SECRET: string
         PORT: string
         URL: string
+        URL_API: string
     }
 }

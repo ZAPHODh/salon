@@ -1,3 +1,4 @@
+import { Menu } from '@/components/Menu'
 import { ServicesTable } from '@/components/ServiceTable'
 import { nextAuthOptions } from '@/lib/nextAuthOptions'
 import { getServerSession } from 'next-auth'
@@ -10,13 +11,24 @@ export default async function Home() {
         redirect('api/auth/signin')
     }
     const response = await fetch(
-        `${process.env.PUBLIC_URL_API}/salons/${session.user.email}`,
-        {
-            cache: 'no-store',
-        }
+        `${process.env.URL_API}/salons/${session.user.email}`
     )
 
     const salon: Salon = await response.json()
 
-    return <ServicesTable salon={salon} title="Serviços"></ServicesTable>
+    return (
+        <>
+            <Menu
+                isLogged={!!session}
+                logo="Serviços"
+                menuLink={[
+                    { name: 'Despesas', to: '/expenses' },
+                    { name: 'Serviços', to: '/services' },
+                    { name: 'Lucratividade', to: '/' },
+                    { name: 'Salão', to: '/salon' },
+                ]}
+            />
+            <ServicesTable salon={salon} title="Serviços"></ServicesTable>
+        </>
+    )
 }

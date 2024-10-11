@@ -1,21 +1,24 @@
 'use client'
-
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import * as Styled from './styles'
 import { Button, Form, Label } from '../ExpenseForm/styles'
 import { Input } from '../ExpenseForm/styles'
 import { weekDays } from '@/lib/utils/weekDays'
 import { Heading } from '../Heading'
-import { redirect } from 'next/navigation'
-export type SalonFormProps = {}
-export const SalonForm = ({}: SalonFormProps) => {
+
+export type SalonFormProps = {
+    owner: string
+}
+export const SalonForm = ({ owner }: SalonFormProps) => {
     const [formValues, setFormValues] = useState<Salon>({
+        owner,
         fee: 0,
         hoursWorkedPerDay: 0,
         name: '',
         openDays: [],
     })
-
+    const router = useRouter()
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setFormValues({
@@ -26,6 +29,7 @@ export const SalonForm = ({}: SalonFormProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+     
         try {
             const response = await fetch('http://localhost:4000/salons', {
                 headers: {
@@ -34,7 +38,8 @@ export const SalonForm = ({}: SalonFormProps) => {
                 method: 'POST',
                 body: JSON.stringify(formValues),
             })
-            if (!response.ok) console.log('deu erro')
+            if (!response.ok) return console.log(await response.json())
+            router.push('/expenses')
         } catch (error) {
             console.log(error)
         }

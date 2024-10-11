@@ -16,6 +16,7 @@ interface Service {
 }
 
 interface Salon {
+    owner: string
     _id?: string
     name: string
     fee: number
