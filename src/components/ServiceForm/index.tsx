@@ -44,7 +44,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
 
         try {
             const response = await fetch(
-                `http://189.82.212.200:4000/salons/${salon._id}/services`,
+                `${process.env.NEXT_PUBLIC_URL_API}/salons/${salon._id}/services`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
