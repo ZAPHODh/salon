@@ -42,13 +42,16 @@ export const SalonEdit = ({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!formValues) return
-        const response = await fetch(`http://localhost:4000/salons/${_id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formValues),
-        })
+        const response = await fetch(
+            `http://189.82.212.200:4000/salons/${_id}`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formValues),
+            }
+        )
         if (!response.ok) return console.log(await response.json())
     }
     const handleCheckboxChange = (day: string) => {

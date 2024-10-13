@@ -42,7 +42,7 @@ export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
     const onDelete = async (expense: Expense) => {
         try {
             const response = await fetch(
-                `https://crud-salon.onrender.com/salons/${salon._id}expenses/${expense._id}`,
+                `https://crud-salon.onrender.com/salons/${salon._id}/expenses/${expense._id}`,
                 {
                     method: 'DELETE',
                 }

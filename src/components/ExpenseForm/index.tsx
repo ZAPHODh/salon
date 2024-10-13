@@ -36,7 +36,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
         try {
             const response = await fetch(
-                `http://localhost:4000/salons/${salon._id}/expenses`,
+                `https://crud-salon.onrender.com/salons/${salon._id}/expenses`,
                 {
                     headers: {
                         'Content-Type': 'application/json',

@@ -31,16 +31,13 @@ export const SalonForm = ({ owner }: SalonFormProps) => {
         e.preventDefault()
 
         try {
-            const response = await fetch(
-                'https://crud-salon.onrender.com/salons',
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(formValues),
-                }
-            )
+            const response = await fetch('http://189.82.212.200:4000/salons', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(formValues),
+            })
             if (!response.ok) return console.log(await response.json())
             router.push('/expenses')
         } catch (error) {

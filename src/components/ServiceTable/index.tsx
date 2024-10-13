@@ -55,7 +55,7 @@ export const ServicesTable = ({ salon, title }: ServicesTableProps) => {
     const onDelete = async (service: Service) => {
         try {
             const response = await fetch(
-                `https://crud-salon.onrender.com/salons/${salon._id}/services/${service._id}`,
+                `http://189.82.212.200:4000/salons/${salon._id}/services/${service._id}`,
                 {
                     method: 'DELETE',
                 }
