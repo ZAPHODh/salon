@@ -43,7 +43,7 @@ export const SalonEdit = ({
         e.preventDefault()
         if (!formValues) return
         const response = await fetch(
-            `http://189.82.212.200:4000/salons/${_id}`,
+            `${process.env.NEXT_PUBLIC_URL_API}/salons/${_id}`,
             {
                 method: 'PUT',
                 headers: {

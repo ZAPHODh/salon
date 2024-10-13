@@ -163,7 +163,7 @@ export const Profit = ({ salon }: ProfitProps) => {
     const saveNewValue = async (service: any) => {
         try {
             const response = await fetch(
-                `http://localhost:4000/salons/${salon._id}/services/${service._id}`,
+                `${process.env.NEXT_PUBLIC_URL_API}/salons/${salon._id}/services/${service._id}`,
                 {
                     method: 'PUT',
                     headers: {

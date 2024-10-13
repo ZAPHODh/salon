@@ -11,7 +11,7 @@ export default async function Expense() {
         redirect('api/auth/signin')
     }
     const response = await fetch(
-        `${process.env.URL_API}/salons/${session.user.email}`
+        `${process.env.NEXT_PUBLIC_URL_API}/salons/${session.user.email}`
     )
 
     const salon: Salon = await response.json()

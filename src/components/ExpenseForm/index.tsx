@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Form, Label, Input, Select, Button, TextArea, Wrapper } from './styles'
+import { Form, Label, Input, Select, Button, Wrapper } from './styles'
 
 interface ExpenseFormProps {
     salon: Salon
@@ -36,7 +36,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
 
         try {
             const response = await fetch(
-                `https://crud-salon.onrender.com/salons/${salon._id}/expenses`,
+                `${process.env.NEXT_PUBLIC_URL_API}/salons/${salon._id}/expenses`,
                 {
                     headers: {
                         'Content-Type': 'application/json',

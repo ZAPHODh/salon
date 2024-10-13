@@ -11,7 +11,7 @@ export default async function Home() {
         redirect('/api/auth/signin')
     }
     const response = await fetch(
-        `${process.env.URL_API}/salons/${session.user.email}`,
+        `${process.env.NEXT_PUBLIC_URL_API}}/salons/${session.user.email}`,
         {
             cache: 'no-store',
         }
