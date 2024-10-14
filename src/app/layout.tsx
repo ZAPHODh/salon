@@ -6,7 +6,7 @@ import { Providers } from './providers'
 
 export const metadata: Metadata = {
     title: 'Profit Calculator',
-    description: 'calculate your profit margin',
+    description: 'calculate your profit margin with precision',
 }
 
 export default function RootLayout({
