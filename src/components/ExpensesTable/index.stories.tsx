@@ -22,5 +22,6 @@ export const Default: Story = {
     args: {
         title: 'preset-storty',
         salon: salonData,
+        urlApi: '',
     },
 }

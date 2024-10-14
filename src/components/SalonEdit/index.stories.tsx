@@ -28,5 +28,6 @@ export const Default: Story = {
         name: 'Mauro Chrisostimo',
         openDays: ['sunday', 'monday'],
         owner: 'luis',
+        urlApi: '',
     },
 }

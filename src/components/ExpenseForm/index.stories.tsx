@@ -22,5 +22,6 @@ export const Default: Story = {
         onSubmit: () => {},
         onClose: () => {},
         salon: salonData,
+        urlApi: '',
     },
 }

@@ -10,12 +10,10 @@ export default async function Home() {
     if (!session?.user) {
         redirect('/api/auth/signin')
     }
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_API}/salons/${session.user.email}`,
-        {
-            cache: 'no-store',
-        }
-    )
+    const urlApi = process.env.URL_API
+    const response = await fetch(`${urlApi}/salons/${session.user.email}`, {
+        cache: 'no-store',
+    })
 
     const salon: Salon = await response.json()
 
@@ -33,7 +31,7 @@ export default async function Home() {
                     { name: 'Salão', to: '/salon' },
                 ]}
             />
-            <Profit salon={salon}></Profit>
+            <Profit salon={salon} urlApi={urlApi}></Profit>
         </>
     )
 }

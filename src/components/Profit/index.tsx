@@ -10,9 +10,10 @@ import { Heading } from '../Heading'
 
 export type ProfitProps = {
     salon: Salon
+    urlApi: string
 }
 
-export const Profit = ({ salon }: ProfitProps) => {
+export const Profit = ({ salon, urlApi }: ProfitProps) => {
     const totalHoursInMonth =
         salon.hoursWorkedInMonth ||
         salon.hoursWorkedPerDay * salon.openDays.length * 4
@@ -163,7 +164,7 @@ export const Profit = ({ salon }: ProfitProps) => {
     const saveNewValue = async (service: any) => {
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_URL_API}/salons/${salon._id}/services/${service._id}`,
+                `${urlApi}/salons/${salon._id}/services/${service._id}`,
                 {
                     method: 'PUT',
                     headers: {

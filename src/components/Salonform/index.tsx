@@ -9,8 +9,9 @@ import { Heading } from '../Heading'
 
 export type SalonFormProps = {
     owner: string
+    urlApi: string
 }
-export const SalonForm = ({ owner }: SalonFormProps) => {
+export const SalonForm = ({ owner, urlApi }: SalonFormProps) => {
     const [formValues, setFormValues] = useState<Salon>({
         owner,
         fee: 0,
@@ -31,16 +32,13 @@ export const SalonForm = ({ owner }: SalonFormProps) => {
         e.preventDefault()
 
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_URL_API}/salons`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(formValues),
-                }
-            )
+            const response = await fetch(`${urlApi}/salons`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(formValues),
+            })
             if (!response.ok) return console.log(await response.json())
             router.push('/expenses')
         } catch (error) {

@@ -16,15 +16,18 @@ export default async function Home() {
     if (!session?.user) {
         redirect('api/auth/signin')
     }
-
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL_API}/salons/${session.user.email}`
-    )
+    const urlApi = process.env.URL_API
+    const response = await fetch(`${urlApi}/salons/${session.user.email}`)
 
     const salon: Salon = await response.json()
 
     if (!salon)
-        return <SalonForm owner={session.user.email as string}></SalonForm>
+        return (
+            <SalonForm
+                owner={session.user.email as string}
+                urlApi={urlApi}
+            ></SalonForm>
+        )
     return (
         <>
             <Menu
@@ -38,6 +41,7 @@ export default async function Home() {
                 ]}
             />
             <SalonEdit
+                urlApi={urlApi}
                 owner={salon.owner}
                 _id={salon._id as string}
                 fee={salon.fee}

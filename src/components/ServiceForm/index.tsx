@@ -13,6 +13,7 @@ interface ServiceFormProps {
     isOpen: boolean
     onSubmit: (service: Service) => void
     salon: Salon
+    urlApi: string
 }
 
 const ServiceForm: React.FC<ServiceFormProps> = ({
@@ -20,6 +21,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
     isOpen,
     onSubmit,
     salon,
+    urlApi,
 }) => {
     const [name, setName] = useState<string>('')
     const [cost, setCost] = useState<number>(0)
@@ -44,7 +46,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
 
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_URL_API}/salons/${salon._id}/services`,
+                `${urlApi}/salons/${salon._id}/services`,
                 {
                     headers: {
                         'Content-Type': 'application/json',

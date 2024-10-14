@@ -4,7 +4,7 @@ import { SalonForm } from '.'
 describe('Salonform', () => {
     it('should render the Salonform', () => {
         const { getByText } = render(
-            <SalonForm owner="luispaulo.ni@gmail.com" />
+            <SalonForm owner="luispaulo.ni@gmail.com" urlApi="" />
         )
 
         const component = getByText('test')
