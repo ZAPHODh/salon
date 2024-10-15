@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
-    const backendUrl = `${process.env.BACKEND_URL}/salons`
+    const backendUrl = `${process.env.URL_API}/salons`
 
     const body = await req.json()
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
     const salonId = req.nextUrl.searchParams.get('salonId')
-    const backendUrl = `${process.env.BACKEND_URL}/salons/${salonId}`
+    const backendUrl = `${process.env.URL_API}/salons/${salonId}`
 
     const body = await req.json()
 

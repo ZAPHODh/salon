@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
     const salonId = req.nextUrl.searchParams.get('salonId')
-    const backendUrl = `${process.env.BACKEND_URL}/salons/${salonId}/services`
+    const backendUrl = `${process.env.URL_API}/salons/${salonId}/services`
 
     const body = await req.json()
 
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
     const salonId = req.nextUrl.searchParams.get('salonId')
     const serviceId = req.nextUrl.searchParams.get('serviceId')
-    const backendUrl = `${process.env.BACKEND_URL}/salons/${salonId}/services/${serviceId}`
+    const backendUrl = `${process.env.URL_API}/salons/${salonId}/services/${serviceId}`
 
     const body = await req.json()
 
@@ -62,7 +62,7 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
     const salonId = req.nextUrl.searchParams.get('salonId')
     const serviceId = req.nextUrl.searchParams.get('serviceId')
-    const backendUrl = `${process.env.BACKEND_URL}/salons/${salonId}/services/${serviceId}`
+    const backendUrl = `${process.env.URL_API}/salons/${salonId}/services/${serviceId}`
 
     try {
         const response = await fetch(backendUrl, {
