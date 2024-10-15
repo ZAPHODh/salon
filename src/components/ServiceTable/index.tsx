@@ -26,12 +26,11 @@ import { Input } from '../ExpenseForm/styles'
 interface ServicesTableProps {
     salon: Salon
     title: string
-    urlApi: string
 }
 
 const ServiceForm = dynamic(() => import('../ServiceForm'))
 
-export const ServicesTable = ({ salon, title, urlApi }: ServicesTableProps) => {
+export const ServicesTable = ({ salon, title }: ServicesTableProps) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
     const [currentKey, setCurrentKey] = useState<keyof Service | null>(null)
     const [showForm, setShowForm] = useState<boolean>(false)
@@ -56,7 +55,7 @@ export const ServicesTable = ({ salon, title, urlApi }: ServicesTableProps) => {
     const onDelete = async (service: Service) => {
         try {
             const response = await fetch(
-                `${urlApi}/salons/${salon._id}/services/${service._id}`,
+                `/api/services?salonId=${salon._id}&serviceId=${service._id}`,
                 {
                     method: 'DELETE',
                 }
@@ -128,7 +127,7 @@ export const ServicesTable = ({ salon, title, urlApi }: ServicesTableProps) => {
         if (editableService) {
             try {
                 const response = await fetch(
-                    `${urlApi}/salons/${salon._id}/services/${editableService._id}`,
+                    `/api/services?salonId=${salon._id}&serviceId=${editableService._id}`,
                     {
                         method: 'PUT',
                         headers: {
@@ -164,7 +163,6 @@ export const ServicesTable = ({ salon, title, urlApi }: ServicesTableProps) => {
                     onClose={handleCloseForm}
                     isOpen={showForm}
                     salon={salon}
-                    urlApi={urlApi}
                 />
             )}
             <TitleWrapper>

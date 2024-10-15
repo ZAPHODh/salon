@@ -9,7 +9,6 @@ interface ExpenseFormProps {
     onClose: () => void
     isOpen: boolean
     onSubmit: (expense: Expense) => void
-    urlApi: string
 }
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({
@@ -17,7 +16,6 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
     onClose,
     isOpen,
     onSubmit,
-    urlApi,
 }) => {
     const [name, setName] = useState<string>('')
     const [type, setType] = useState<'fixed' | 'variable'>('fixed')
@@ -37,16 +35,13 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
         }
 
         try {
-            const response = await fetch(
-                `${urlApi}/salons/${salon._id}/expenses`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(expense),
-                }
-            )
+            const response = await fetch(`/api/expenses?salonId=${salon._id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(expense),
+            })
             const Expense = await response.json()
             onSubmit(Expense)
         } catch (error) {

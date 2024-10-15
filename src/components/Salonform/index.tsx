@@ -9,9 +9,8 @@ import { Heading } from '../Heading'
 
 export type SalonFormProps = {
     owner: string
-    urlApi: string
 }
-export const SalonForm = ({ owner, urlApi }: SalonFormProps) => {
+export const SalonForm = ({ owner }: SalonFormProps) => {
     const [formValues, setFormValues] = useState<Salon>({
         owner,
         fee: 0,
@@ -32,7 +31,7 @@ export const SalonForm = ({ owner, urlApi }: SalonFormProps) => {
         e.preventDefault()
 
         try {
-            const response = await fetch(`${urlApi}/salons`, {
+            const response = await fetch(`/api/salons`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -45,6 +44,7 @@ export const SalonForm = ({ owner, urlApi }: SalonFormProps) => {
             console.log(error)
         }
     }
+
     const handleCheckboxChange = (day: WeekDays) => {
         setFormValues((prev) => {
             const newOpenDays = prev.openDays.includes(day)

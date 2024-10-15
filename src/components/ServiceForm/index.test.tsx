@@ -3,7 +3,7 @@ import ServiceForm from '.'
 
 describe('ServiceForm', () => {
     it('should render the ServiceForm', () => {
-        const { getByText } = render(<ServiceForm urlApi="" />)
+        const { getByText } = render(<ServiceForm />)
 
         const component = getByText('test')
 

@@ -31,11 +31,7 @@ export default async function Home() {
                     { name: 'Salão', to: '/salon' },
                 ]}
             />
-            <ServicesTable
-                salon={salon}
-                title="Serviços"
-                urlApi={urlApi}
-            ></ServicesTable>
+            <ServicesTable salon={salon} title="Serviços"></ServicesTable>
         </>
     )
 }

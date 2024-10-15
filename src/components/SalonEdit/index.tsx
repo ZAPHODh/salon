@@ -12,7 +12,6 @@ export type SalonEditProps = {
     _id: string
     hoursWorkedPerDay: number
     owner: string
-    urlApi: string
 }
 export const SalonEdit = ({
     owner,
@@ -21,7 +20,6 @@ export const SalonEdit = ({
     fee,
     _id,
     hoursWorkedPerDay,
-    urlApi,
 }: SalonEditProps) => {
     const [changedValues, setChangedValues] = useState<boolean>(false)
     const [defaultValues] = useState({ name, openDays, fee, hoursWorkedPerDay })
@@ -44,7 +42,7 @@ export const SalonEdit = ({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         if (!formValues) return
-        const response = await fetch(`${urlApi}/salons/${_id}`, {
+        const response = await fetch(`/api/salons?salonId=${_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,6 +51,7 @@ export const SalonEdit = ({
         })
         if (!response.ok) return console.log(await response.json())
     }
+
     const handleCheckboxChange = (day: string) => {
         setFormValues((prev) => {
             const newOpenDays = prev.openDays.includes(day)

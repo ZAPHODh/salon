@@ -13,12 +13,11 @@ import { DismissSquare } from '@styled-icons/fluentui-system-filled/DismissSquar
 interface ExpensesTableProps {
     salon: Salon
     title: string
-    urlApi: string
 }
 
 const ExpenseForm = dynamic(() => import('../ExpenseForm'))
 
-export const ExpensesTable = ({ salon, title, urlApi }: ExpensesTableProps) => {
+export const ExpensesTable = ({ salon, title }: ExpensesTableProps) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
     const [currentKey, setCurrentKey] = useState<keyof Expense | null>(null)
     const [showForm, setShowForm] = useState<boolean>(false)
@@ -43,7 +42,7 @@ export const ExpensesTable = ({ salon, title, urlApi }: ExpensesTableProps) => {
     const onDelete = async (expense: Expense) => {
         try {
             const response = await fetch(
-                `${urlApi}/salons/${salon._id}/expenses/${expense._id}`,
+                `/api/expenses?salonId=${salon._id}&expenseId=${expense._id}`,
                 {
                     method: 'DELETE',
                 }
@@ -115,7 +114,7 @@ export const ExpensesTable = ({ salon, title, urlApi }: ExpensesTableProps) => {
         if (editableExpense) {
             try {
                 const response = await fetch(
-                    `${urlApi}/salons/${salon._id}/expenses/${editableExpense._id}`,
+                    `/api/expenses?salonId=${salon._id}&expenseId=${editableExpense._id}`,
                     {
                         method: 'PUT',
                         headers: {
@@ -149,7 +148,6 @@ export const ExpensesTable = ({ salon, title, urlApi }: ExpensesTableProps) => {
                     onSubmit={onSubmit}
                     onClose={handleCloseForm}
                     isOpen={showForm}
-                    urlApi={urlApi}
                 />
             )}
             <Styled.TitleWrapper>

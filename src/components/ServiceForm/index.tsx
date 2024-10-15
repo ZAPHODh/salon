@@ -13,7 +13,6 @@ interface ServiceFormProps {
     isOpen: boolean
     onSubmit: (service: Service) => void
     salon: Salon
-    urlApi: string
 }
 
 const ServiceForm: React.FC<ServiceFormProps> = ({
@@ -21,7 +20,6 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
     isOpen,
     onSubmit,
     salon,
-    urlApi,
 }) => {
     const [name, setName] = useState<string>('')
     const [cost, setCost] = useState<number>(0)
@@ -45,16 +43,13 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
         }
 
         try {
-            const response = await fetch(
-                `${urlApi}/salons/${salon._id}/services`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    body: JSON.stringify(service),
-                }
-            )
+            const response = await fetch(`/api/services?salonId=${salon._id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify(service),
+            })
             const Service: Service = await response.json()
             onSubmit(Service)
         } catch (error) {

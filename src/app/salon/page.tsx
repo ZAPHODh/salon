@@ -22,12 +22,7 @@ export default async function Home() {
     const salon: Salon = await response.json()
 
     if (!salon)
-        return (
-            <SalonForm
-                owner={session.user.email as string}
-                urlApi={urlApi}
-            ></SalonForm>
-        )
+        return <SalonForm owner={session.user.email as string}></SalonForm>
     return (
         <>
             <Menu
@@ -41,7 +36,6 @@ export default async function Home() {
                 ]}
             />
             <SalonEdit
-                urlApi={urlApi}
                 owner={salon.owner}
                 _id={salon._id as string}
                 fee={salon.fee}

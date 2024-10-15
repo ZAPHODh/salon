@@ -30,7 +30,7 @@ export default async function Expense() {
                     { name: 'Salão', to: '/salon' },
                 ]}
             />
-            <ExpensesTable title="Despesas" salon={salon} urlApi={urlApi} />
+            <ExpensesTable title="Despesas" salon={salon} />
         </>
     )
 }

@@ -9,7 +9,6 @@ const mockProps: SalonEditProps = {
     _id: '1',
     hoursWorkedPerDay: 8,
     owner: '',
-    urlApi: '',
 }
 
 describe('SalonEdit Component', () => {

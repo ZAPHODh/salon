@@ -31,7 +31,7 @@ export default async function Home() {
                     { name: 'Salão', to: '/salon' },
                 ]}
             />
-            <Profit salon={salon} urlApi={urlApi}></Profit>
+            <Profit salon={salon}></Profit>
         </>
     )
 }
