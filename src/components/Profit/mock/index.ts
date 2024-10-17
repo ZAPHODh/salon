@@ -26,6 +26,48 @@ export const salonData: Salon = {
             category: 'Variáveis',
             amount: 20000,
         },
+        {
+            _id: '2',
+            name: 'Água',
+            type: 'fixed',
+            category: 'Variáveis',
+            amount: 400,
+        },
+        {
+            _id: '3',
+            name: 'Resto',
+            type: 'variable',
+            category: 'Variáveis',
+            amount: 20000,
+        },
+        {
+            _id: '2',
+            name: 'Água',
+            type: 'fixed',
+            category: 'Variáveis',
+            amount: 400,
+        },
+        {
+            _id: '3',
+            name: 'Resto',
+            type: 'variable',
+            category: 'Variáveis',
+            amount: 20000,
+        },
+        {
+            _id: '2',
+            name: 'Água',
+            type: 'fixed',
+            category: 'Variáveis',
+            amount: 400,
+        },
+        {
+            _id: '3',
+            name: 'Resto',
+            type: 'variable',
+            category: 'Variáveis',
+            amount: 20000,
+        },
     ],
     services: [
         {

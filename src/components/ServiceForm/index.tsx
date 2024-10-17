@@ -7,6 +7,7 @@ import {
     HiddenCheckbox,
     StyledCheckbox,
 } from '../Salonform/styles'
+import { AttachedExpenses } from './styles'
 
 interface ServiceFormProps {
     onClose: () => void
@@ -129,27 +130,28 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                 />
 
                 <Label>Despesas Atreladas</Label>
-                {salon.expenses &&
-                    salon.expenses.map((expense) => (
-                        <CheckboxWrapper key={expense._id}>
-                            <HiddenCheckbox
-                                type="checkbox"
-                                checked={attachedExpenses.includes(
-                                    expense._id || ''
-                                )}
-                                onChange={() =>
-                                    handleExpenseChange(expense._id || '')
-                                }
-                            />
-                            <StyledCheckbox
-                                checked={attachedExpenses.includes(
-                                    expense._id || ''
-                                )}
-                            />
-                            {expense.name}
-                        </CheckboxWrapper>
-                    ))}
-
+                <AttachedExpenses>
+                    {salon.expenses &&
+                        salon.expenses.map((expense) => (
+                            <CheckboxWrapper key={expense._id}>
+                                <HiddenCheckbox
+                                    type="checkbox"
+                                    checked={attachedExpenses.includes(
+                                        expense._id || ''
+                                    )}
+                                    onChange={() =>
+                                        handleExpenseChange(expense._id || '')
+                                    }
+                                />
+                                <StyledCheckbox
+                                    checked={attachedExpenses.includes(
+                                        expense._id || ''
+                                    )}
+                                />
+                                {expense.name}
+                            </CheckboxWrapper>
+                        ))}
+                </AttachedExpenses>
                 <Button type="submit">Adicionar serviço</Button>
             </Form>
         </Wrapper>

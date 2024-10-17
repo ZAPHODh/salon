@@ -15,6 +15,7 @@ export const Form = styled.form`
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    max-height: 100vh;
 `
 
 export const Label = styled.label`
