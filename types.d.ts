@@ -5,7 +5,9 @@ interface Expense {
     category: string
     amount: number
 }
-
+type Professional = {
+    und: number
+}
 interface Service {
     _id?: string
     name: string
@@ -13,6 +15,7 @@ interface Service {
     commission: number
     attachedExpenses: Expense[]
     duration: number
+    whoDo: 'manicure' | 'hairdresser'
 }
 
 interface Salon {
@@ -25,6 +28,10 @@ interface Salon {
     hoursWorkedInMonth?: number
     expenses?: Expense[]
     services?: Service[]
+    professionals: {
+        manicure: Professional
+        hairdresser: Professional
+    }
 }
 
 type WeekDays =

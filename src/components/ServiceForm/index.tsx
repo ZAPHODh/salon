@@ -6,7 +6,7 @@ import {
     CheckboxWrapper,
     HiddenCheckbox,
     StyledCheckbox,
-} from '../Salonform/styles'
+} from '../SalonForm/styles'
 import { AttachedExpenses } from './styles'
 
 interface ServiceFormProps {
@@ -26,7 +26,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
     const [cost, setCost] = useState<number>(0)
     const [commission, setCommission] = useState<number>(0)
     const [duration, setDuration] = useState<number>(0)
-    const [attachedExpenses, setAttachedExpenses] = useState<string[]>([]) // Armazena IDs das despesas selecionadas
+    const [attachedExpenses, setAttachedExpenses] = useState<string[]>([])
+    const [whoDo, setWhoDo] = useState<'manicure' | 'hairdresser'>('manicure')
 
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -41,6 +42,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
             attachedExpenses: (salon.expenses || []).filter((expense) =>
                 attachedExpenses.includes(expense._id || '')
             ),
+            whoDo,
         }
 
         try {
@@ -51,8 +53,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                 method: 'POST',
                 body: JSON.stringify(service),
             })
-            const Service: Service = await response.json()
-            onSubmit(Service)
+            const newService: Service = await response.json()
+            onSubmit(newService)
         } catch (error) {
             console.log(error)
         }
@@ -67,6 +69,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
         setCommission(0)
         setDuration(0)
         setAttachedExpenses([])
+        setWhoDo('manicure')
     }
 
     const handleExpenseChange = (expenseId: string) => {
@@ -152,9 +155,38 @@ const ServiceForm: React.FC<ServiceFormProps> = ({
                             </CheckboxWrapper>
                         ))}
                 </AttachedExpenses>
+
+                <Label>Quem vai fazer?</Label>
+                <AttachedExpenses>
+                    <CheckboxWrapper>
+                        <HiddenCheckbox
+                            type="radio"
+                            name="whoDo"
+                            value="manicure"
+                            checked={whoDo === 'manicure'}
+                            onChange={() => setWhoDo('manicure')}
+                        />
+                        <StyledCheckbox checked={whoDo === 'manicure'} />
+                        Manicure
+                    </CheckboxWrapper>
+
+                    <CheckboxWrapper>
+                        <HiddenCheckbox
+                            type="radio"
+                            name="whoDo"
+                            value="hairdresser"
+                            checked={whoDo === 'hairdresser'}
+                            onChange={() => setWhoDo('hairdresser')}
+                        />
+                        <StyledCheckbox checked={whoDo === 'hairdresser'} />
+                        Cabeleireiro
+                    </CheckboxWrapper>
+                </AttachedExpenses>
+
                 <Button type="submit">Adicionar serviço</Button>
             </Form>
         </Wrapper>
     )
 }
+
 export default ServiceForm

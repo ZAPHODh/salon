@@ -2,10 +2,10 @@
 
 import styled, { css } from 'styled-components'
 
-export const Wrapper = styled.header<{ isFixed: boolean }>`
-    ${({ isFixed }) => css`
+export const Wrapper = styled.header<{ $isFixed: boolean }>`
+    ${({ $isFixed }) => css`
         color: white;
-        ${isFixed && 'position: fixed'};
+        ${$isFixed && 'position: fixed'};
         z-index: 10;
         top: 0;
         left: 0;
@@ -19,8 +19,8 @@ export const Wrapper = styled.header<{ isFixed: boolean }>`
         padding: 10px 20px;
     `}
 `
-export const MenuNav = styled.nav<{ clicked: boolean }>`
-    ${({ clicked }) => css`
+export const MenuNav = styled.nav<{ $clicked: boolean }>`
+    ${({ $clicked }) => css`
         z-index: 9;
         display: flex;
         align-items: center;
@@ -30,7 +30,7 @@ export const MenuNav = styled.nav<{ clicked: boolean }>`
             left: 0;
             bottom: 0;
             top: 0;
-            display: ${clicked ? 'flex' : 'none'};
+            display: ${$clicked ? 'flex' : 'none'};
             flex-direction: column;
             width: 100vw;
             height: 100vh;

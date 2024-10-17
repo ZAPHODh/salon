@@ -22,7 +22,10 @@ export const Profit = ({ salon }: ProfitProps) => {
 
         return salon.services.map((service) => {
             const maxServicesPerMonth = Math.floor(
-                (totalHoursInMonth * 60) / service.duration
+                (totalHoursInMonth *
+                    60 *
+                    salon.professionals[service.whoDo].und) /
+                    service.duration
             )
             console.log(
                 maxServicesPerMonth,
@@ -80,7 +83,7 @@ export const Profit = ({ salon }: ProfitProps) => {
                 totalExpensesPerService,
                 profit,
                 profitPercentage,
-                adjustedServiceCost: service.cost, // Inicializa com o custo original
+                adjustedServiceCost: service.cost,
             }
         })
     }
@@ -98,7 +101,10 @@ export const Profit = ({ salon }: ProfitProps) => {
             prevMetrics.map((metric, i) => {
                 if (i === index) {
                     const maxServicesPerMonth = Math.floor(
-                        (totalHoursInMonth * 60) / metric.duration
+                        (totalHoursInMonth *
+                            60 *
+                            salon.professionals[metric.whoDo].und) /
+                            metric.duration
                     )
                     const directExpensesTotal = metric.attachedExpenses.reduce(
                         (sum, expense) => sum + expense.amount,

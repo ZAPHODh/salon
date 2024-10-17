@@ -1,4 +1,5 @@
 'use client'
+
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import * as Styled from './styles'
@@ -10,6 +11,7 @@ import { Heading } from '../Heading'
 export type SalonFormProps = {
     owner: string
 }
+
 export const SalonForm = ({ owner }: SalonFormProps) => {
     const [formValues, setFormValues] = useState<Salon>({
         owner,
@@ -17,13 +19,32 @@ export const SalonForm = ({ owner }: SalonFormProps) => {
         hoursWorkedPerDay: 0,
         name: '',
         openDays: [],
+        professionals: { hairdresser: { und: 0 }, manicure: { und: 0 } },
     })
+    const [hasManicure, setHasManicure] = useState(false)
+    const [hasHairdresser, setHasHairdresser] = useState(false)
+
     const router = useRouter()
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setFormValues({
             ...formValues,
             [name]: value,
+        })
+    }
+
+    const handleProfessionalChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        type: 'manicure' | 'hairdresser'
+    ) => {
+        const { value } = e.target
+        setFormValues({
+            ...formValues,
+            professionals: {
+                ...formValues.professionals,
+                [type]: { und: Number(value) },
+            },
         })
     }
 
@@ -95,6 +116,58 @@ export const SalonForm = ({ owner }: SalonFormProps) => {
                     value={formValues.hoursWorkedPerDay}
                     onChange={handleInputChange}
                 />
+
+                {/* Manicure Option */}
+                <Label>Tem manicure?</Label>
+                <Styled.CheckboxWrapper>
+                    <Styled.HiddenCheckbox
+                        type="checkbox"
+                        checked={hasManicure}
+                        onChange={() => setHasManicure(!hasManicure)}
+                    />
+                    <Styled.StyledCheckbox checked={hasManicure} />
+                    Sim
+                </Styled.CheckboxWrapper>
+                {hasManicure && (
+                    <>
+                        <Label>Quantidade de manicures:</Label>
+                        <Input
+                            type="number"
+                            name="manicure"
+                            value={formValues.professionals.manicure?.und || 0}
+                            onChange={(e) =>
+                                handleProfessionalChange(e, 'manicure')
+                            }
+                        />
+                    </>
+                )}
+
+                {/* Hairdresser Option */}
+                <Label>Tem cabeleireiro?</Label>
+                <Styled.CheckboxWrapper>
+                    <Styled.HiddenCheckbox
+                        type="checkbox"
+                        checked={hasHairdresser}
+                        onChange={() => setHasHairdresser(!hasHairdresser)}
+                    />
+                    <Styled.StyledCheckbox checked={hasHairdresser} />
+                    Sim
+                </Styled.CheckboxWrapper>
+                {hasHairdresser && (
+                    <>
+                        <Label>Quantidade de cabeleireiros:</Label>
+                        <Input
+                            type="number"
+                            name="hairdresser"
+                            value={
+                                formValues.professionals.hairdresser?.und || 0
+                            }
+                            onChange={(e) =>
+                                handleProfessionalChange(e, 'hairdresser')
+                            }
+                        />
+                    </>
+                )}
 
                 <Button type="submit">Cadastrar</Button>
             </Form>
