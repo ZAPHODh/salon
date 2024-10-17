@@ -33,9 +33,8 @@ export async function PUT(req: NextRequest) {
     const salonId = req.nextUrl.searchParams.get('salonId')
     const expenseId = req.nextUrl.searchParams.get('expenseId')
     const backendUrl = `${process.env.URL_API}/salons/${salonId}/expenses/${expenseId}`
-
+    if (!salonId || !expenseId) return NextResponse.json({ error: 'error' })
     const body = await req.json()
-
     try {
         const response = await fetch(backendUrl, {
             method: 'PUT',
@@ -60,8 +59,8 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-    const salonId = req.nextUrl.searchParams.get('salonId') // Use .get() to access salonId
-    const expenseId = req.nextUrl.searchParams.get('expenseId') // Use .get() to access expenseId
+    const salonId = req.nextUrl.searchParams.get('salonId')
+    const expenseId = req.nextUrl.searchParams.get('expenseId')
     const backendUrl = `${process.env.URL_API}/salons/${salonId}/expenses/${expenseId}`
 
     try {
