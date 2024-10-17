@@ -49,7 +49,7 @@ export const Menu = ({ menuLink = [], isLogged, logo }: MenuProps) => {
     }
 
     return (
-        <Styled.Wrapper isFixed={isFixed}>
+        <Styled.Wrapper $isFixed={isFixed}>
             <Heading as="h1">{logo}</Heading>
             <Styled.ContainerSmallWindow>
                 {isLogged ? (
@@ -76,7 +76,7 @@ export const Menu = ({ menuLink = [], isLogged, logo }: MenuProps) => {
                     <MenuIcon fontSize="inherit" />
                 </Styled.Hamburguer>
 
-                <Styled.MenuNav clicked={openMenu}>
+                <Styled.MenuNav $clicked={openMenu}>
                     <Styled.CloseMenuSmallWindow onClick={handleCloseMenuNav}>
                         <Close fontSize="inherit" />
                     </Styled.CloseMenuSmallWindow>

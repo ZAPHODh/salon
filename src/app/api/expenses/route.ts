@@ -33,7 +33,7 @@ export async function PUT(req: NextRequest) {
     const salonId = req.nextUrl.searchParams.get('salonId')
     const expenseId = req.nextUrl.searchParams.get('expenseId')
     const backendUrl = `${process.env.URL_API}/salons/${salonId}/expenses/${expenseId}`
-    if (!salonId || !expenseId) return NextResponse.json({ error: 'error' })
+    console.log(salonId, expenseId, backendUrl)
     const body = await req.json()
     try {
         const response = await fetch(backendUrl, {
