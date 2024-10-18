@@ -147,8 +147,6 @@ export const SalonEdit = ({
                     value={formValues.hoursWorkedPerDay}
                     onChange={handleInputChange}
                 />
-
-                {/* Manicure Option */}
                 <Label>Tem manicure?</Label>
                 <Styled.CheckboxWrapper>
                     <Styled.HiddenCheckbox

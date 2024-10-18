@@ -42,6 +42,7 @@ export default async function Home() {
                 name={salon.name}
                 hoursWorkedPerDay={salon.hoursWorkedPerDay}
                 openDays={salon.openDays}
+                professionals={salon.professionals}
             ></SalonEdit>
         </>
     )

@@ -28,10 +28,9 @@ export async function POST(req: NextRequest) {
     }
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest, res: NextResponse) {
     const salonId = req.nextUrl.searchParams.get('salonId')
     const backendUrl = `${process.env.URL_API}/salons/${salonId}`
-    console.log(backendUrl)
     const body = await req.json()
 
     try {

@@ -27,11 +27,7 @@ export const Profit = ({ salon }: ProfitProps) => {
                     salon.professionals[service.whoDo].und) /
                     service.duration
             )
-            console.log(
-                maxServicesPerMonth,
-                totalHoursInMonth,
-                service.duration
-            )
+
             const directExpensesTotal = service.attachedExpenses.reduce(
                 (sum, expense) => sum + expense.amount,
                 0
