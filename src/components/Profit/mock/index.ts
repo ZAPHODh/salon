@@ -1,4 +1,6 @@
 export const salonData: Salon = {
+    owner: 'eu',
+    professionals: { hairdresser: { und: 1 }, manicure: { und: 1 } },
     name: 'Mauro Chrisostimo',
     fee: 10,
     openDays: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
@@ -85,11 +87,12 @@ export const salonData: Salon = {
                 },
             ],
             duration: 1,
+            whoDo: 'hairdresser',
         },
         {
-            _id: '2',
-            name: 'Mechas de Cabelo',
-            cost: 450,
+            _id: '1',
+            name: 'Corte de Cabelo',
+            cost: 130,
             commission: 50,
             attachedExpenses: [
                 {
@@ -97,11 +100,28 @@ export const salonData: Salon = {
                     name: 'Custo do Produto',
                     type: 'variable',
                     category: 'Serviços',
-                    amount: 2200,
+                    amount: 450,
                 },
             ],
-            duration: 4,
+            duration: 1,
+            whoDo: 'hairdresser',
+        },
+        {
+            _id: '1',
+            name: 'Corte de Cabelo',
+            cost: 130,
+            commission: 50,
+            attachedExpenses: [
+                {
+                    _id: '1',
+                    name: 'Custo do Produto',
+                    type: 'variable',
+                    category: 'Serviços',
+                    amount: 450,
+                },
+            ],
+            duration: 1,
+            whoDo: 'hairdresser',
         },
     ],
-    owner: 'Dono',
 }
