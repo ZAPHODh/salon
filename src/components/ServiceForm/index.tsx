@@ -6,7 +6,7 @@ import {
     CheckboxWrapper,
     HiddenCheckbox,
     StyledCheckbox,
-} from '../TempSalonForm/styles'
+} from '../SalonForm/styles'
 import { AttachedExpenses } from './styles'
 
 interface ServiceFormProps {
