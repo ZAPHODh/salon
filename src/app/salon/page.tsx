@@ -1,6 +1,6 @@
 import { Menu } from '@/components/Menu'
 import { SalonEdit } from '@/components/SalonEdit'
-import { SalonForm } from '@/components/SalonForm'
+import { SalonForm } from '@/components/TempSalonForm'
 import { nextAuthOptions } from '@/lib/nextAuthOptions'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth'
