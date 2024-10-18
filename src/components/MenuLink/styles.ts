@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
-import Link from 'next/link'
-export const Wrapper = styled(Link)`
+
+export const Wrapper = styled.a`
     ${() => css`
         text-decoration: none;
         color: #8b8b8b;
