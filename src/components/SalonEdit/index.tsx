@@ -170,8 +170,6 @@ export const SalonEdit = ({
                         />
                     </>
                 )}
-
-                {/* Hairdresser Option */}
                 <Label>Tem cabeleireiro?</Label>
                 <Styled.CheckboxWrapper>
                     <Styled.HiddenCheckbox
@@ -197,10 +195,11 @@ export const SalonEdit = ({
                         />
                     </>
                 )}
-
-                <Button type="submit" disabled={!changedValues}>
-                    Editar
-                </Button>
+                <div>
+                    <Button type="submit" disabled={!changedValues}>
+                        Editar
+                    </Button>
+                </div>
             </Form>
         </Styled.Wrapper>
     )

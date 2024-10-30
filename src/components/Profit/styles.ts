@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components'
 
 import { NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 import { Title } from '../Heading/styles'
+import { Input } from '../ExpenseForm/styles'
 const rotate = keyframes`
   0% {
     transform: rotate(0deg);
@@ -206,4 +207,21 @@ export const ButtonContainer = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+`
+export const HeaderContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    @media (max-width: 760px) {
+        gap: 10px;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+    }
+    ${Input} {
+        @media (max-width: 760px) {
+            width: 90vw;
+        }
+    }
 `

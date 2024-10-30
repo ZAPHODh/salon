@@ -16,7 +16,7 @@ export const MenuLink = ({
     target = '_self',
 }: MenuLinkProps) => {
     return (
-        <Styled.Wrapper href={href} target={target} onClick={onClick}>
+        <Styled.Wrapper href={href} target={target} onClick={onClick} > 
             {children}
         </Styled.Wrapper>
     )

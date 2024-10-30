@@ -5,7 +5,7 @@ export const salonData: Salon = {
     fee: 10,
     openDays: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
     hoursWorkedPerDay: 8,
-    hoursWorkedInMonth: 160 * 3,
+    hoursWorkedInMonth: 160,
     expenses: [
         {
             _id: '1',
@@ -110,6 +110,23 @@ export const salonData: Salon = {
             _id: '1',
             name: 'Corte de Cabelo',
             cost: 130,
+            commission: 50,
+            attachedExpenses: [
+                {
+                    _id: '1',
+                    name: 'Custo do Produto',
+                    type: 'variable',
+                    category: 'Serviços',
+                    amount: 450,
+                },
+            ],
+            duration: 1,
+            whoDo: 'hairdresser',
+        },
+        {
+            _id: '1',
+            name: 'Mechas',
+            cost: 620,
             commission: 50,
             attachedExpenses: [
                 {

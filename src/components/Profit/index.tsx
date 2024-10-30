@@ -1,12 +1,12 @@
 'use client'
-
-import { useEffect, useState } from 'react'
-
+import { useEffect, useState, useMemo } from 'react'
 import * as Styled from './styles'
 import { Button, NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 import { SortAlt } from '@styled-icons/boxicons-solid/SortAlt'
 import { Save } from '@styled-icons/boxicons-solid/Save'
 import { Heading } from '../Heading'
+import { calculateExpensesAndProfit } from '@/lib/utils/calculateExpnesesAndProfit'
+import { Input } from '../ExpenseForm/styles'
 
 export type ProfitProps = {
     salon: Salon
@@ -17,42 +17,15 @@ export const Profit = ({ salon }: ProfitProps) => {
         salon.hoursWorkedInMonth ||
         salon.hoursWorkedPerDay * salon.openDays.length * 4
 
-    const calculateServiceMetrics = () => {
+    const serviceMetrics = useMemo(() => {
         if (!salon.services || salon.services.length === 0) return []
 
         return salon.services.map((service) => {
-            const maxServicesPerMonth = Math.floor(
-                (totalHoursInMonth *
-                    60 *
-                    salon.professionals[service.whoDo].und) /
-                    service.duration
-            )
-
-            const directExpensesTotal = service.attachedExpenses.reduce(
-                (sum, expense) => sum + expense.amount,
-                0
-            )
-
-            const directExpensesPerService =
-                maxServicesPerMonth > 0
-                    ? directExpensesTotal / maxServicesPerMonth
-                    : 0
-
-            const fixedAndVariableExpensesTotal =
-                salon.expenses?.reduce((sum, expense) => {
-                    if (
-                        expense.type === 'fixed' ||
-                        expense.type === 'variable'
-                    ) {
-                        return sum + expense.amount
-                    }
-                    return sum
-                }, 0) || 0
-
-            const indirectExpensesPerService =
-                maxServicesPerMonth > 0
-                    ? fixedAndVariableExpensesTotal / maxServicesPerMonth
-                    : 0
+            const {
+                maxServicesPerMonth,
+                directExpensesPerService,
+                indirectExpensesPerService,
+            } = calculateExpensesAndProfit(service, totalHoursInMonth, salon)
 
             const feePerService = service.cost * (salon.fee / 100)
             const commissionPerService =
@@ -65,7 +38,6 @@ export const Profit = ({ salon }: ProfitProps) => {
                 commissionPerService
 
             const profit = service.cost - totalExpensesPerService
-
             const profitPercentage =
                 service.cost > 0 ? (profit / service.cost) * 100 : 0
 
@@ -82,55 +54,33 @@ export const Profit = ({ salon }: ProfitProps) => {
                 adjustedServiceCost: service.cost,
             }
         })
-    }
+    }, [salon, totalHoursInMonth])
 
-    const [serviceMetrics, setServiceMetrics] = useState(
-        calculateServiceMetrics()
-    )
+    const [metrics, setMetrics] = useState(serviceMetrics)
+    const [searchQuery, setSearchQuery] = useState('')
 
     useEffect(() => {
-        setServiceMetrics(calculateServiceMetrics())
-    }, [salon])
+        setMetrics(serviceMetrics)
+    }, [serviceMetrics])
+
+    const [openCards, setOpenCards] = useState<boolean[]>(
+        Array(metrics.length).fill(false)
+    )
 
     const handleSliderChange = (index: number, newValue: number) => {
-        setServiceMetrics((prevMetrics) =>
+        setMetrics((prevMetrics) =>
             prevMetrics.map((metric, i) => {
                 if (i === index) {
-                    const maxServicesPerMonth = Math.floor(
-                        (totalHoursInMonth *
-                            60 *
-                            salon.professionals[metric.whoDo].und) /
-                            metric.duration
+                    const {
+                        directExpensesPerService,
+                        indirectExpensesPerService,
+                    } = calculateExpensesAndProfit(
+                        metric,
+                        totalHoursInMonth,
+                        salon
                     )
-                    const directExpensesTotal = metric.attachedExpenses.reduce(
-                        (sum, expense) => sum + expense.amount,
-                        0
-                    )
-
-                    const directExpensesPerService =
-                        maxServicesPerMonth > 0
-                            ? directExpensesTotal / maxServicesPerMonth
-                            : 0
-
-                    const fixedAndVariableExpensesTotal =
-                        salon.expenses?.reduce((sum, expense) => {
-                            if (
-                                expense.type === 'fixed' ||
-                                expense.type === 'variable'
-                            ) {
-                                return sum + expense.amount
-                            }
-                            return sum
-                        }, 0) || 0
-
-                    const indirectExpensesPerService =
-                        maxServicesPerMonth > 0
-                            ? fixedAndVariableExpensesTotal /
-                              maxServicesPerMonth
-                            : 0
 
                     const feePerService = newValue * (salon.fee / 100)
-
                     const commissionPerService =
                         newValue * (metric.commission / 100)
 
@@ -141,7 +91,6 @@ export const Profit = ({ salon }: ProfitProps) => {
                         commissionPerService
 
                     const profit = newValue - totalExpensesPerService
-
                     const profitPercentage =
                         newValue > 0 ? (profit / newValue) * 100 : 0
 
@@ -186,11 +135,30 @@ export const Profit = ({ salon }: ProfitProps) => {
         }
     }
 
+    const filteredMetrics = metrics.filter((metric) =>
+        metric.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+    const toggleCardOpen = (index: number) => {
+        setOpenCards((prevOpenCards) =>
+            prevOpenCards.map((isOpen, i) => (i === index ? !isOpen : isOpen))
+        )
+    }
+
     return (
         <Styled.Wrapper>
-            <Heading>Dashboard de Lucro - {salon.name}</Heading>
-            {serviceMetrics.map((metric, index) => {
-                const [isOpen, setIsOpen] = useState(false)
+            <Styled.HeaderContainer>
+                <Heading>Dashboard de Lucro - {salon.name}</Heading>
+
+                <Input
+                    type="text"
+                    placeholder="Pesquise o serviço..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </Styled.HeaderContainer>
+            {filteredMetrics.map((metric, index) => {
+                const isOpen = openCards[index]
 
                 return (
                     <Styled.Card key={index}>
@@ -244,7 +212,7 @@ export const Profit = ({ salon }: ProfitProps) => {
 
                             <WrapperHeader>
                                 <NeutralButton
-                                    onClick={() => setIsOpen(!isOpen)}
+                                    onClick={() => toggleCardOpen(index)}
                                 >
                                     <SortAlt />
                                 </NeutralButton>
