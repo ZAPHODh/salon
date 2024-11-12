@@ -10,10 +10,12 @@ export default async function Home() {
     if (!session?.user) {
         redirect('/api/auth/signin')
     }
-    const urlApi = process.env.URL_API
-    const response = await fetch(`${urlApi}/salons/${session.user.email}`, {
-        cache: 'no-store',
-    })
+    const response = await fetch(
+        `${process.env.URL_API}/salons/${session.user.email}`,
+        {
+            cache: 'no-store',
+        }
+    )
 
     const salon: Salon = await response.json()
 
