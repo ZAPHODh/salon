@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 
-import { NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
+import { Button, NeutralButton, WrapperHeader } from '../ExpensesTable/styles'
 import { Title } from '../Heading/styles'
 import { Input } from '../ExpenseForm/styles'
 const rotate = keyframes`
@@ -223,5 +223,8 @@ export const HeaderContainer = styled.div`
         @media (max-width: 760px) {
             width: 90vw;
         }
+    }
+    ${Button} {
+        width: 80px;
     }
 `

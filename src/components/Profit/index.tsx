@@ -7,6 +7,7 @@ import { Save } from '@styled-icons/boxicons-solid/Save'
 import { Heading } from '../Heading'
 import { calculateExpensesAndProfit } from '@/lib/utils/calculateExpnesesAndProfit'
 import { Input } from '../ExpenseForm/styles'
+import Link from 'next/link'
 
 export type ProfitProps = {
     salon: Salon
@@ -144,18 +145,27 @@ export const Profit = ({ salon }: ProfitProps) => {
             prevOpenCards.map((isOpen, i) => (i === index ? !isOpen : isOpen))
         )
     }
-
+    const onReportClick = () => {}
     return (
         <Styled.Wrapper>
             <Styled.HeaderContainer>
                 <Heading>Dashboard de Lucro - {salon.name}</Heading>
-
                 <Input
                     type="text"
                     placeholder="Pesquise o serviço..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
+                <Button onClick={onReportClick}>
+                    <Link
+                        style={{ textDecoration: 'none' }}
+                        href={{
+                            pathname: '/reports',
+                        }}
+                    >
+                        Relatório
+                    </Link>
+                </Button>
             </Styled.HeaderContainer>
             {filteredMetrics.map((metric, index) => {
                 const isOpen = openCards[index]

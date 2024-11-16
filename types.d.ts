@@ -8,6 +8,16 @@ interface Expense {
 type Professional = {
     und: number
 }
+
+interface Report {
+    salonId: string
+    createdAt: Date
+    reportContent: string
+}
+interface ReportResponse {
+    message: string
+    report: Report
+}
 interface Service {
     _id?: string
     name: string
