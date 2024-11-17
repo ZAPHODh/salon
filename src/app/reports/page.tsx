@@ -7,7 +7,7 @@ export type ReportsProps = {
     name: string
 }
 
-export default async function Reports() {
+export default async function Home() {
     const session = await getServerSession(nextAuthOptions)
 
     if (!session?.user) {
@@ -20,9 +20,19 @@ export default async function Reports() {
 
     if (!salon)
         return <SalonForm owner={session.user.email as string}></SalonForm>
-    const report: ReportResponse = await fetch(
-        `${urlApi}/salons/${salon._id}/reports`
-    ).then((res) => res.json())
 
-    return <div>{report.report.reportContent}</div>
+    const reportResponse = await fetch(
+        `${urlApi}/salons/${salon._id}/reports`,
+        {
+            method: 'POST',
+        }
+    )
+
+    const { report }: ReportResponse = await reportResponse.json()
+
+    return (
+        <pre style={{ color: 'white' }}>
+            {report.reportContent.split('\n\n').join('\n\n  ')}
+        </pre>
+    )
 }

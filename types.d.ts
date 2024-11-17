@@ -10,10 +10,12 @@ type Professional = {
 }
 
 interface Report {
+    _id: string
     salonId: string
     createdAt: Date
     reportContent: string
 }
+
 interface ReportResponse {
     message: string
     report: Report

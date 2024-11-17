@@ -21,6 +21,6 @@ export const GlobalStyle = createGlobalStyle`${() => css`
         background-color: #090c08;
     }
     a {
-        color: inherit;
+        color: white;
     }
 `}`
