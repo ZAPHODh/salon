@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { marked } from 'marked'
 import * as Styled from './styles'
-import { jsPDF } from 'jspdf'
+
 import DOMPurify from 'dompurify'
 
 export const Markdown = ({ markdownText }: { markdownText: string }) => {
