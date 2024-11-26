@@ -244,14 +244,6 @@ export const Profit = ({ salon }: ProfitProps) => {
                                     <tbody>
                                         <tr>
                                             <Styled.TableCell>
-                                                Serviços Máximos por Mês
-                                            </Styled.TableCell>
-                                            <Styled.TableCell>
-                                                {metric.maxServicesPerMonth}
-                                            </Styled.TableCell>
-                                        </tr>
-                                        <tr>
-                                            <Styled.TableCell>
                                                 Gastos Diretos por Serviço
                                             </Styled.TableCell>
                                             <Styled.TableCell>

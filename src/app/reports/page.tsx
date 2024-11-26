@@ -1,3 +1,5 @@
+import { Markdown } from '@/components/Markdown'
+import { Menu } from '@/components/Menu'
 import { SalonForm } from '@/components/SalonForm'
 import { nextAuthOptions } from '@/lib/nextAuthOptions'
 import { getServerSession } from 'next-auth'
@@ -31,8 +33,18 @@ export default async function Home() {
     const { report }: ReportResponse = await reportResponse.json()
 
     return (
-        <pre style={{ color: 'white' }}>
-            {report.reportContent.split('\n\n').join('\n\n  ')}
-        </pre>
+        <>
+            <Menu
+                isLogged={!!session}
+                logo="Relatório"
+                menuLink={[
+                    { name: 'Despesas', to: '/expenses' },
+                    { name: 'Serviços', to: '/services' },
+                    { name: 'Lucratividade', to: '/' },
+                    { name: 'Salão', to: '/salon' },
+                ]}
+            />
+            <Markdown markdownText={report.reportContent} />
+        </>
     )
 }
